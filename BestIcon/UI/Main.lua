@@ -161,8 +161,8 @@ local function createSearchBox(content)
         return nil
     end
     box:SetHeight(24)
-    box:SetPoint("TOPLEFT", content, "TOPLEFT", 14, -34)
-    box:SetPoint("TOPRIGHT", content, "TOPRIGHT", -144, -34)
+    box:SetPoint("TOPLEFT", content, "TOPLEFT", 14, -46)
+    box:SetPoint("TOPRIGHT", content, "TOPRIGHT", -144, -46)
     box:SetAutoFocus(false)
     box:SetScript("OnTextChanged", function(self, userInput)
         if type(SearchBoxTemplate_OnTextChanged) == "function" then
@@ -186,7 +186,7 @@ local function createCategoryButton(content)
         button.label = text
     end
     button:SetSize(120, 24)
-    button:SetPoint("TOPRIGHT", content, "TOPRIGHT", -12, -32)
+    button:SetPoint("TOPRIGHT", content, "TOPRIGHT", -12, -44)
     if button.SetText then
         button:SetText(categoryLabel(nil))
     elseif button.label then
@@ -313,7 +313,7 @@ local function createContent()
     categoryButton = createCategoryButton(content)
 
     local gridInset = createInset(content)
-    gridInset:SetPoint("TOPLEFT", content, "TOPLEFT", 12, -68)
+    gridInset:SetPoint("TOPLEFT", content, "TOPLEFT", 12, -80)
     gridInset:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -12, 214)
     windowGrid = BI.Grid.Create(gridInset, function(pos)
         BI.UI.SelectIcon(pos)
