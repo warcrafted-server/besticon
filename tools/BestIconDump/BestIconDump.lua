@@ -28,6 +28,15 @@ SlashCmdList.BIDUMP = function()
       db.globals[#db.globals + 1] = k .. ":" .. type(_G[k])
     end
   end
+  db.templates = {}
+  for _, tpl in ipairs({ "ButtonFrameTemplate", "PortraitFrameTemplate", "ButtonFrameTemplateNoPortrait",
+    "UIPanelButtonTemplate", "UIPanelCloseButton", "PanelTabButtonTemplate", "InputBoxTemplate",
+    "SearchBoxTemplate", "InsetFrameTemplate", "InsetFrameTemplate3", "MinimalScrollBar", "ScrollFrameTemplate",
+    "UIPanelScrollFrameTemplate", "WowScrollBoxList", "ItemButtonTemplate", "SimplePopupButtonTemplate",
+    "BackdropTemplate", "UICheckButtonTemplate", "MinimalSliderTemplate", "UIPanelDialogTemplate" }) do
+    local ok = pcall(CreateFrame, "Frame", nil, UIParent, tpl)
+    db.templates[#db.templates + 1] = tpl .. ":" .. tostring(ok)
+  end
   table.sort(db.globals)
   BestIconDumpDB = db
   print("BestIconDump: listo (" .. #db.globals .. " globales). Haz /reload para guardar.")
