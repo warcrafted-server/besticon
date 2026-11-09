@@ -204,6 +204,15 @@ def main():
     all_camps = to_list(BI.Search.Run("", "camps"))
     check(bool(all_camps) and all(BI.Index.InCategory("camps", p) for p in all_camps),
           "categoria con consulta vacia")
+    camp_benefits = None
+    for position in to_list(BI.Search.Run("camp")):
+        if name_of(position) == "INV_Camelot_Camping_CampBenefits":
+            camp_benefits = position
+            break
+    check(camp_benefits is not None, "CampBenefits encontrado")
+    if camp_benefits is not None:
+        check("camps" in to_list(BI.Index.CategoriesOf(camp_benefits)),
+              "CategoriesOf incluye camps")
 
     print("(g) rendimiento")
     queries = ["camp", "fire", "sword", "fish", "hoguera", "pocion", "dragon",
@@ -231,6 +240,21 @@ def main():
         if "print(" in text:
             visible = True
     check(not visible, "sin print() en la logica")
+
+    print("(i) compilacion UI y TOC")
+    for path in sorted((ADDON / "UI").glob("*.lua")):
+        relative = "UI/" + path.name
+        try:
+            loader(path.read_text(encoding="utf-8"), relative)
+            check(True, relative)
+        except Exception as error:
+            check(False, "%s: %s" % (relative, error))
+    toc = [line.strip() for line in (ADDON / "BestIcon.toc").read_text(encoding="utf-8").splitlines()]
+    check("UI/Main.lua" in toc and "UI/Grid.lua" in toc and "UI/Info.lua" in toc,
+          "TOC incluye Main, Grid e Info")
+    if "UI/Main.lua" in toc and "UI/Grid.lua" in toc and "UI/Info.lua" in toc:
+        check(toc.index("UI/Main.lua") < toc.index("UI/Grid.lua") < toc.index("UI/Info.lua"),
+              "orden Main, Grid, Info")
 
     total = time.perf_counter() - started
     print("Tiempo total: %.3f s" % total)

@@ -387,3 +387,14 @@ end
 function BI.Index.TokensForName(name)
     return tokenize(name)
 end
+
+function BI.Index.CategoriesOf(position)
+    local out = {}
+    for _, category in ipairs(BI.Categories or {}) do
+        local set = categorySets[category.key]
+        if set and set[position] then
+            out[#out + 1] = category.key
+        end
+    end
+    return out
+end

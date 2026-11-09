@@ -57,3 +57,11 @@ function BI.DB.Path(id)
     end
     return "Interface\\ICONS\\" .. name
 end
+
+function BI.DB.Name(index)
+    local _, name = BI.DB.Get(index)
+    if not name then
+        return nil
+    end
+    return (name:gsub("_", " "))
+end
