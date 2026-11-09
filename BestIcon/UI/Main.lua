@@ -79,10 +79,10 @@ end
 local function initialSize()
     local width = BI.Config.Get("width")
     local height = BI.Config.Get("height")
-    if not width or (width == 400 and height == 500) then
+    if not width or (width == 400 and height == 500) or (width == 440 and height == 540) then
         BI.Config.Set("width", 440)
-        BI.Config.Set("height", 540)
-        return 440, 540
+        BI.Config.Set("height", 620)
+        return 440, 620
     end
     return width, height
 end
@@ -161,8 +161,8 @@ local function createSearchBox(content)
         return nil
     end
     box:SetHeight(24)
-    box:SetPoint("TOPLEFT", content, "TOPLEFT", 12, -12)
-    box:SetPoint("TOPRIGHT", content, "TOPRIGHT", -144, -12)
+    box:SetPoint("TOPLEFT", content, "TOPLEFT", 14, -34)
+    box:SetPoint("TOPRIGHT", content, "TOPRIGHT", -144, -34)
     box:SetAutoFocus(false)
     box:SetScript("OnTextChanged", function(self, userInput)
         if type(SearchBoxTemplate_OnTextChanged) == "function" then
@@ -186,7 +186,7 @@ local function createCategoryButton(content)
         button.label = text
     end
     button:SetSize(120, 24)
-    button:SetPoint("TOPRIGHT", content, "TOPRIGHT", -12, -12)
+    button:SetPoint("TOPRIGHT", content, "TOPRIGHT", -12, -32)
     if button.SetText then
         button:SetText(categoryLabel(nil))
     elseif button.label then
@@ -204,7 +204,7 @@ local function createResizeGrabber()
         pcall(frame.SetResizable, frame, true)
     end
     if type(frame.SetResizeBounds) == "function" then
-        pcall(frame.SetResizeBounds, frame, 380, 440, 700, 800)
+        pcall(frame.SetResizeBounds, frame, 380, 520, 700, 900)
     end
     local ok, grabber = pcall(CreateFrame, "Button", nil, frame)
     if not ok or not grabber then
@@ -313,14 +313,14 @@ local function createContent()
     categoryButton = createCategoryButton(content)
 
     local gridInset = createInset(content)
-    gridInset:SetPoint("TOPLEFT", content, "TOPLEFT", 12, -48)
-    gridInset:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -12, 184)
+    gridInset:SetPoint("TOPLEFT", content, "TOPLEFT", 12, -68)
+    gridInset:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -12, 214)
     windowGrid = BI.Grid.Create(gridInset, function(pos)
         BI.UI.SelectIcon(pos)
     end)
 
     local infoInset = createInset(content)
-    infoInset:SetHeight(140)
+    infoInset:SetHeight(172)
     infoInset:SetPoint("BOTTOMLEFT", content, "BOTTOMLEFT", 12, 34)
     infoInset:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -12, 34)
     if BI.Info and BI.Info.Create then
@@ -344,6 +344,10 @@ local function createContent()
     if windowGrid then
         windowGrid:Resize()
     end
+end
+
+function BI.UI.GetGrid()
+    return windowGrid
 end
 
 function BI.UI.GetFrame()

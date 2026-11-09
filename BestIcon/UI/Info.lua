@@ -50,19 +50,15 @@ function BI.Info.Create(parent)
     panel.preview = preview
 
     local name = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-    name:SetPoint("TOPLEFT", preview, "TOPRIGHT", 8, -2)
+    name:SetPoint("TOPLEFT", preview, "TOPRIGHT", 10, -2)
     name:SetPoint("RIGHT", parent, "RIGHT", -10, 0)
+    name:SetHeight(18)
     name:SetJustifyH("LEFT")
     panel.name = name
 
-    local idLabel = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    idLabel:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -6)
-    idLabel:SetText(BI.L["infoId"])
-    panel.idLabel = idLabel
-
     local idBox = CreateFrame("EditBox", nil, parent, "InputBoxTemplate")
-    idBox:SetSize(120, 20)
-    idBox:SetPoint("LEFT", idLabel, "RIGHT", 6, 0)
+    idBox:SetSize(110, 20)
+    idBox:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 46, -8)
     idBox:SetAutoFocus(false)
     idBox:SetScript("OnEditFocusGained", function(self)
         self:HighlightText()
@@ -74,15 +70,15 @@ function BI.Info.Create(parent)
     end)
     panel.idBox = idBox
 
-    local pathLabel = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    pathLabel:SetPoint("TOPLEFT", idLabel, "BOTTOMLEFT", 0, -8)
-    pathLabel:SetText(BI.L["infoPath"])
-    panel.pathLabel = pathLabel
+    local idLabel = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    idLabel:SetPoint("RIGHT", idBox, "LEFT", -8, 0)
+    idLabel:SetText(BI.L["infoId"])
+    panel.idLabel = idLabel
 
     local pathBox = CreateFrame("EditBox", nil, parent, "InputBoxTemplate")
     pathBox:SetHeight(20)
-    pathBox:SetPoint("LEFT", pathLabel, "RIGHT", 6, 0)
-    pathBox:SetPoint("RIGHT", parent, "RIGHT", -10, 0)
+    pathBox:SetPoint("TOPLEFT", idBox, "BOTTOMLEFT", 0, -6)
+    pathBox:SetPoint("RIGHT", parent, "RIGHT", -14, 0)
     pathBox:SetAutoFocus(false)
     pathBox:SetScript("OnEditFocusGained", function(self)
         self:HighlightText()
@@ -94,8 +90,13 @@ function BI.Info.Create(parent)
     end)
     panel.pathBox = pathBox
 
+    local pathLabel = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    pathLabel:SetPoint("RIGHT", pathBox, "LEFT", -8, 0)
+    pathLabel:SetText(BI.L["infoPath"])
+    panel.pathLabel = pathLabel
+
     local categories = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    categories:SetPoint("TOPLEFT", pathLabel, "BOTTOMLEFT", 0, -8)
+    categories:SetPoint("TOPLEFT", preview, "BOTTOMLEFT", 0, -8)
     categories:SetPoint("RIGHT", parent, "RIGHT", -10, 0)
     categories:SetJustifyH("LEFT")
     panel.categories = categories
@@ -137,7 +138,7 @@ function BI.Info.Create(parent)
     end
 
     local noSelection = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    noSelection:SetPoint("CENTER", parent, "CENTER", 0, 0)
+    noSelection:SetPoint("TOPLEFT", preview, "TOPRIGHT", 10, -6)
     noSelection:SetText(BI.L["infoNoSelection"])
     panel.noSelection = noSelection
 

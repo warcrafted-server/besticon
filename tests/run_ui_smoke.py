@@ -56,6 +56,7 @@ function overrides:Show() self._shown = true; if self._scripts.OnShow then self.
 function overrides:Hide() self._shown = false; if self._scripts.OnHide then self._scripts.OnHide(self) end end
 function overrides:SetEnabled(v) self._enabled = v end
 function overrides:SetValue(v) self._value = v end
+function overrides:GetValue() return self._value or 0 end
 function overrides:SetTexture(v) self._texture = v end
 function overrides:SetSize(w, h) self._w = w; self._h = h end
 function overrides:GetChildren() return end
@@ -114,19 +115,17 @@ function find_frame(predicate)
     for _, f in ipairs(ALL_FRAMES) do if predicate(f) then return f end end
 end
 
--- Renderiza n elementos del ScrollBox como lo haría el juego.
-function render(box, n)
-    local data = box._provider.data
+-- Botones visibles de la cuadricula propia (marcos Button con posicion asignada).
+function render()
     local buttons = {}
-    for i = 1, math.min(n, #data) do
-        box._view.factory(function(frameType, setup)
-            local b = NewFrame(frameType)
-            setup(b, data[i])
-            buttons[#buttons + 1] = b
-        end, data[i])
+    for _, f in ipairs(ALL_FRAMES) do
+        if f._type == "Button" and f.position and f._shown then buttons[#buttons + 1] = f end
     end
+    table.sort(buttons, function(x, y) return x.position < y.position end)
     return buttons
 end
+
+function total() return #BI.UI.GetGrid().results end
 
 for _, relative in ipairs(toc_files()) do
     local chunk, err = loadstring(read_file(relative), relative)
@@ -144,20 +143,23 @@ local frame = BestIconFrame
 check(frame and frame._shown, "ventana abierta con /besticon")
 check(BI.Index.IsReady(), "indice listo")
 
-local box = find_frame(function(f) return f._scrollBox end)
-check(box and box._provider and #box._provider.data == 27714, "cuadricula con todo el catalogo")
-local buttons = render(box, 30)
-check(#buttons == 30 and buttons[1].icon._texture ~= nil, "botones renderizados con icono")
+check(BI.UI.GetGrid() and total() == 27714, "cuadricula con todo el catalogo")
+local buttons = render()
+check(#buttons > 30 and buttons[1].icon._texture ~= nil, "botones visibles con icono")
+check(buttons[1]._h == 36, "botones con tamano de icono")
+BI.UI.GetGrid().slider._scripts.OnValueChanged(BI.UI.GetGrid().slider, 3)
+check(render()[1].position > 1, "el scroll desplaza las filas")
+BI.UI.GetGrid().slider._scripts.OnValueChanged(BI.UI.GetGrid().slider, 0)
 
 print("(2) busqueda")
 local search = find_frame(function(f) return f._template == "SearchBoxTemplate" end)
 search._text = "hoguera"
 search._scripts.OnTextChanged(search, true)
-check(#box._provider.data == 2, "'hoguera' da 2 iconos")
+check(total() == 2, "'hoguera' da 2 iconos")
 search._text = "campfire"
 search._scripts.OnTextChanged(search, true)
-check(#box._provider.data == 2, "'campfire' da 2 iconos")
-buttons = render(box, 5)
+check(total() == 2, "'campfire' da 2 iconos")
+buttons = render()
 
 print("(3) seleccion, historial y favoritos")
 buttons[1]._scripts.OnClick(buttons[1], "LeftButton")
@@ -171,15 +173,15 @@ check(#BestIconDB.favorites == 1 and #BestIconDB.history == 1, "persistencia en 
 print("(4) pestanas")
 search._text = ""
 BI.UI.SelectTab(2)
-check(#box._provider.data == 1, "pestana Favoritos: 1 icono")
+check(total() == 1, "pestana Favoritos: 1 icono")
 BI.UI.SelectTab(3)
-check(#box._provider.data == 1, "pestana Historial: 1 icono")
+check(total() == 1, "pestana Historial: 1 icono")
 check(BestIconDB.activeTab == 3, "pestana activa guardada")
 BI.UI.SelectTab(1)
-check(#box._provider.data == 27714, "pestana Todos: catalogo completo")
+check(total() == 27714, "pestana Todos: catalogo completo")
 
 print("(5) macros y tamano")
-buttons = render(box, 3)
+buttons = render()
 buttons[1]._scripts.OnDoubleClick(buttons[1])
 check(BI.Macros.Apply(7808148) == "noPopup", "sin selector de macros abierto: noPopup")
 local slider = find_frame(function(f) return f._template == "MinimalSliderTemplate" end)

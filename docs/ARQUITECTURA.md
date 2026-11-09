@@ -10,7 +10,7 @@ Namespace compartido `local ADDON, BI = ...` en todos los archivos. Orden de car
 | `Search/` | `Normalize.lua` (minúsculas, sin tildes, plurales), `Index.lua` (índice por palabra, `BuildAsync` por tramos), `Search.lua` (`Run(consulta, categoría)`) |
 | `Features/` | `Favorites.lua`, `History.lua`, `Results.lua` (resultados por pestaña, sin interfaz) |
 | `Macros/` | `Macros.lua`: `Apply`, `UsePosition` y botón en `MacroPopupFrame` |
-| `UI/` | `Main.lua` (ventana, pestañas, búsqueda), `Grid.lua` (ScrollBox y botones), `Info.lua` (panel de información) |
+| `UI/` | `Main.lua` (ventana, pestañas, búsqueda), `Grid.lua` (cuadrícula virtualizada propia con Slider y botones reciclados), `Info.lua` (panel de información) |
 
 ## Datos
 

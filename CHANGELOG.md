@@ -11,7 +11,7 @@ Versión de trabajo 0.1.0 (la del TOC). Pendiente de probar la interfaz en el cl
 - Catálogo de 27 714 iconos volcado del cliente (build 1.60.1.70862), separado de la lógica y generado con `tools/build_catalog.py`.
 - Búsqueda instantánea bilingüe (español e inglés), sin tildes, con plurales, por ID y por ruta; alias en español para el 99 % de los iconos.
 - Categorías ampliables (Campamentos, Comida y bebida, Armas, etc.).
-- Interfaz con aspecto nativo: marco con retrato, caja de búsqueda, cuadrícula virtualizada, panel de información con ID y ruta copiables, ventana movible y redimensionable.
+- Interfaz con aspecto nativo: marco con retrato, caja de búsqueda, cuadrícula virtualizada propia (marcos y deslizador estándar), panel de información con ID y ruta copiables, ventana movible y redimensionable.
 - Favoritos, historial (40), pestañas Todos/Favoritos/Historial y tamaño de icono ajustable, con persistencia.
 - Integración con el selector de iconos de macros de Blizzard (experimental) con instrucciones de respaldo.
 - Localización esES/enUS con respaldo.

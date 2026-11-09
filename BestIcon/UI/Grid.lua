@@ -122,97 +122,121 @@ local function setButton(button, position, onSelect, iconSize)
     end
 end
 
+local GAP = 4
+
 function BI.Grid.Create(parent, onSelect)
-    local iconSize = Grid.ClampIconSize(BI.Config.Get("iconSize"))
     local grid = setmetatable({
-        iconSize = iconSize,
+        iconSize = Grid.ClampIconSize(BI.Config.Get("iconSize")),
         parent = parent,
         onSelect = onSelect,
         buttons = {},
         results = {},
+        row = 0,
     }, Grid)
 
-    local scrollBar
-    for _, frameType in ipairs({ "EventFrame", "Frame" }) do
-        local ok, bar = pcall(CreateFrame, frameType, nil, parent, "MinimalScrollBar")
-        if ok and bar then
-            scrollBar = bar
-            break
+    local viewport = CreateFrame("Frame", nil, parent)
+    viewport:SetPoint("TOPLEFT", parent, "TOPLEFT", 6, -6)
+    viewport:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -26, 6)
+    if viewport.SetClipsChildren then
+        viewport:SetClipsChildren(true)
+    end
+    grid.viewport = viewport
+    viewport:SetScript("OnSizeChanged", function()
+        grid:Resize()
+    end)
+
+    local slider = CreateFrame("Slider", nil, parent)
+    slider:SetOrientation("VERTICAL")
+    slider:SetWidth(16)
+    slider:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -5, -6)
+    slider:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -5, 6)
+    slider:SetMinMaxValues(0, 0)
+    slider:SetValueStep(1)
+    if slider.SetObeyStepOnDrag then
+        slider:SetObeyStepOnDrag(true)
+    end
+    local track = slider:CreateTexture(nil, "BACKGROUND")
+    track:SetAllPoints()
+    track:SetColorTexture(0, 0, 0, 0.35)
+    slider:SetThumbTexture("Interface\Buttons\UI-ScrollBar-Knob")
+    local thumb = slider:GetThumbTexture()
+    if thumb then
+        thumb:SetSize(18, 24)
+    end
+    slider:SetValue(0)
+    slider:SetScript("OnValueChanged", function(_, value)
+        local row = math.floor((value or 0) + 0.5)
+        if row ~= grid.row then
+            grid.row = row
+            grid:Render()
         end
-    end
-    if not scrollBar then
-        notify("MinimalScrollBar")
-        return nil
-    end
-    scrollBar:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -4, -4)
-    scrollBar:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -4, 4)
-    grid.scrollBar = scrollBar
+    end)
+    grid.slider = slider
 
-    local okBox, scrollBox = pcall(CreateFrame, "Frame", nil, parent, "WowScrollBoxList")
-    if not okBox or not scrollBox then
-        notify("WowScrollBoxList")
-        return nil
-    end
-    scrollBox:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, -4)
-    scrollBox:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -24, 4)
-    grid.scrollBox = scrollBox
-
-    local stride = Grid.ComputeStride(parent:GetWidth(), iconSize)
-    grid.stride = stride
-
-    local okView, view = pcall(CreateScrollBoxListGridView, stride, 0, 0, 0, 0, 4, 4)
-    if not okView or not view then
-        notify("CreateScrollBoxListGridView")
-        return nil
-    end
-    grid.view = view
-    if type(view.SetElementExtent) == "function" then
-        pcall(view.SetElementExtent, view, iconSize)
-    end
-
-    local function setup(button, elementData)
-        initButton(button, grid.buttons)
-        setButton(button, elementData, onSelect, grid.iconSize)
-    end
-
-    local factorySet = false
-    if type(view.SetElementFactory) == "function" then
-        factorySet = pcall(view.SetElementFactory, view, function(factory)
-            factory("Button", setup)
-        end)
-    end
-    if not factorySet and type(view.SetElementInitializer) == "function" then
-        factorySet = pcall(view.SetElementInitializer, view, "Button", setup)
-    end
-    if not factorySet then
-        notify("SetElementFactory")
-    end
-
-    -- La vista debe enlazarse antes de asignar datos.
-    if type(ScrollUtil) == "table" and type(ScrollUtil.InitScrollBoxListWithScrollBar) == "function" then
-        if not pcall(ScrollUtil.InitScrollBoxListWithScrollBar, scrollBox, scrollBar, view) then
-            notify("ScrollUtil")
-        end
-    else
-        notify("ScrollUtil")
-    end
+    viewport:EnableMouseWheel(true)
+    viewport:SetScript("OnMouseWheel", function(_, delta)
+        slider:SetValue(slider:GetValue() - delta * 3)
+    end)
+    parent:EnableMouseWheel(true)
+    parent:SetScript("OnMouseWheel", function(_, delta)
+        slider:SetValue(slider:GetValue() - delta * 3)
+    end)
 
     return grid
 end
 
+function Grid:Layout()
+    local width = self.viewport:GetWidth() or 0
+    local height = self.viewport:GetHeight() or 0
+    local cell = self.iconSize + GAP
+    local stride = math.max(1, math.floor((width + GAP) / cell))
+    local visibleRows = math.max(1, math.floor((height + GAP) / cell))
+    self.stride = stride
+    self.visibleRows = visibleRows
+    local totalRows = math.ceil(#self.results / stride)
+    local maxRow = math.max(0, totalRows - visibleRows)
+    self.slider:SetMinMaxValues(0, maxRow)
+    if self.row > maxRow then
+        self.row = maxRow
+    end
+    self.slider:SetValue(self.row)
+    self.slider:SetEnabled(maxRow > 0)
+end
+
+function Grid:Render()
+    local stride, visibleRows = self.stride or 1, self.visibleRows or 1
+    local cell = self.iconSize + GAP
+    local slots = stride * (visibleRows + 1)
+    for i = 1, slots do
+        local button = self.buttons[i]
+        if not button then
+            button = CreateFrame("Button", nil, self.viewport)
+            initButton(button, self.buttons)
+        end
+        local position = self.results[self.row * stride + i]
+        if position then
+            local col = (i - 1) % stride
+            local r = math.floor((i - 1) / stride)
+            button:ClearAllPoints()
+            button:SetPoint("TOPLEFT", self.viewport, "TOPLEFT", col * cell, -r * cell)
+            setButton(button, position, self.onSelect, self.iconSize)
+            button:Show()
+        else
+            button.position = nil
+            button:Hide()
+        end
+    end
+    for i = slots + 1, #self.buttons do
+        self.buttons[i].position = nil
+        self.buttons[i]:Hide()
+    end
+end
+
 function Grid:SetResults(results)
     self.results = results or {}
-    if not self.scrollBox then
-        return
-    end
-    local okProvider, provider = pcall(CreateDataProvider, self.results)
-    if not okProvider or not provider or type(self.scrollBox.SetDataProvider) ~= "function" then
-        notify("CreateDataProvider")
-        return
-    end
-    if not pcall(self.scrollBox.SetDataProvider, self.scrollBox, provider) then
-        notify("SetDataProvider")
-    end
+    self.row = 0
+    self:Layout()
+    self:Render()
 end
 
 function Grid:Update(results)
@@ -220,32 +244,12 @@ function Grid:Update(results)
 end
 
 function Grid:Resize()
-    if not self.parent or not self.view then
-        return
-    end
-    local stride = Grid.ComputeStride(self.parent:GetWidth(), self.iconSize)
-    self.stride = stride
-    if type(self.view.SetStride) == "function" then
-        local ok = pcall(self.view.SetStride, self.view, stride)
-        if not ok then
-            notify("SetStride")
-        end
-    else
-        notify("SetStride")
-    end
-    if self.scrollBox and type(self.scrollBox.FullUpdate) == "function" then
-        pcall(self.scrollBox.FullUpdate, self.scrollBox)
-    end
+    self:Layout()
+    self:Render()
 end
 
 function Grid:SetIconSize(size)
     self.iconSize = Grid.ClampIconSize(size)
-    if self.view and type(self.view.SetElementExtent) == "function" then
-        pcall(self.view.SetElementExtent, self.view, self.iconSize)
-    end
-    for i = 1, #self.buttons do
-        self.buttons[i]:SetSize(self.iconSize, self.iconSize)
-    end
     self:Resize()
 end
 
