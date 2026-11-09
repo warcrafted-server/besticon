@@ -3,7 +3,8 @@
 ## Notes: Visual icon browser.
 ## Notes-esES: Buscador visual de iconos del cliente.
 ## Version: 0.1.0
-## Author: warcrafted-server
+## Author: WarCrafted
+## X-License: WNCL-TP-1.0
 ## SavedVariables: BestIconDB
 
 Core/Init.lua

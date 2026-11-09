@@ -4,7 +4,9 @@ Formato [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/), versionado 
 
 ## [Sin publicar]
 
-Versión de trabajo 0.1.0 (la del TOC). Pendiente de probar la interfaz en el cliente antes de etiquetarla.
+## [0.1.0] - 2026-11-10
+
+Primera versión. Probada en el cliente: ventana, cuadrícula, búsqueda y panel de información.
 
 ### Añadido
 - Addon `BestIcon` para WoW Forever (Interface 16001): comandos `/besticon` y `/bi`.
@@ -17,4 +19,5 @@ Versión de trabajo 0.1.0 (la del TOC). Pendiente de probar la interfaz en el cl
 - Localización esES/enUS con respaldo.
 - Herramientas de desarrollo: `tools/BestIconDump` (volcado en el juego), `tools/build_catalog.py`, `tools/build_vocab.py`.
 - Tests fuera del cliente (`tests/run_tests.py`, `tests/run_ui_smoke.py`).
+- Licencia WNCL-TP-1.0 (titular WarCrafted) y `CREDITS.md` con el material de terceros (nombres de iconos del listfile comunitario, sin licencia declarada).
 - Documentación: README, informe de investigación, arquitectura y cobertura de idiomas.

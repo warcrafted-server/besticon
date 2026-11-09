@@ -2,7 +2,7 @@
 
 Buscador visual de iconos para **WoW Forever** (build 1.60.1.70862, Interface 16001). Busca entre los 27 714 iconos del cliente por palabras en español o inglés y facilita usarlos en macros.
 
-> Estado: versión 0.1.0 en desarrollo. La lógica (búsqueda, alias, favoritos, macros) está probada fuera del juego; la interfaz completa y la integración con macros **están pendientes de probar en el cliente** (ver [Estado de las funciones](#estado-de-las-funciones)). Sin licencia decidida todavía.
+> Estado: versión 0.1.0. Ventana, cuadrícula, búsqueda y panel de información probados en el cliente; la integración con el selector de macros sigue siendo experimental (ver [Estado de las funciones](#estado-de-las-funciones)).
 
 ## Requisitos
 
@@ -39,7 +39,8 @@ Clasificación: CONFIRMADA (comprobada en el cliente), VERIFICADA (datos o tests
 | Carga del addon y ventana base nativa | CONFIRMADA |
 | Catálogo de 27 714 iconos (`GetMacroIcons` + `GetMacroItemIcons`) | CONFIRMADA |
 | Búsqueda bilingüe, categorías, favoritos e historial | VERIFICADA (tests) |
-| Cuadrícula, pestañas, deslizador, panel de información | EXPERIMENTAL |
+| Cuadrícula, búsqueda, selección y panel de información | CONFIRMADA (probado en el cliente) |
+| Pestañas, favoritos y deslizador de tamaño | VERIFICADA (tests); pendiente de confirmar en el cliente |
 | Fijar el icono en el selector de macros de Blizzard | EXPERIMENTAL |
 | Asignar un icono a una macro con la API (`C_Macro`) | NO DISPONIBLE (solo tiene `RunMacroText`, `GetMacroName`, `GetSelectedMacroIcon`) |
 
@@ -55,6 +56,21 @@ python tests/run_ui_smoke.py       # interfaz con un cliente simulado; admite es
 
 Las herramientas de datos están en `tools/` (volcado en el juego, generación del catálogo y del vocabulario); ver la arquitectura.
 
-## Licencia
+## Créditos y licencia
 
-Pendiente de decidir. Mientras tanto, todos los derechos reservados.
+**Best Icon** está desarrollado y mantenido por **WarCrafted**.
+Copyright (C) 2026 WarCrafted.
+
+Licencia [WNCL-TP-1.0](LICENSE): puedes usarlo, estudiarlo, modificarlo y compartirlo gratis con fines no comerciales. Venderlo o cualquier uso comercial requiere permiso por escrito. Solo cubre el material propio; los componentes de terceros conservan su licencia.
+
+Las copias y los forks deben conservar esta atribución y enlazar a https://github.com/warcrafted-server/besticon.
+
+### Material de terceros
+
+| Componente | Autor | Licencia | Enlace |
+| --- | --- | --- | --- |
+| Nombres de iconos (`BestIcon/Data/Icons_*.lua`), de la lista de archivos comunitaria | Comunidad wowdev | No declarada por el origen | https://github.com/wowdev/wow-listfile |
+
+Los iconos son de Blizzard Entertainment y no se distribuyen: se leen del cliente del juego.
+
+Créditos completos: [CREDITS.md](CREDITS.md).

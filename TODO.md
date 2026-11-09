@@ -1,13 +1,11 @@
 # Pendiente
 
 ## Alta
-- Probar en el cliente la interfaz completa (cuadrícula, pestañas, deslizador, panel) y corregir lo que falle; los avisos de API ausente salen una vez en el chat.
+- Confirmar en el cliente pestañas, favoritos, deslizador de tamaño y el nuevo deslizador de la cuadrícula.
 - Probar la integración con el selector de macros (`/macro`, Nuevo, Usar en macro) y reclasificarla en el README.
-- Decidir la licencia del proyecto (con la Skill `licencias`) antes del primer push.
-- Autorizar el push a `warcrafted-server/besticon` y, tras las pruebas, el tag `v0.1.0`.
 
 ## Media
-- Resolver la licencia del listfile comunitario (wow-listfile, sin licencia visible) antes de distribuir los nombres de iconos.
+- Contactar con los mantenedores de wow-listfile para aclarar su licencia (se publica asumiendo el riesgo, decisión del titular).
 - Revisar con una muestra humana los alias en español y traducir las palabras con 1 o 2 iconos (unas 3 100).
 - Comprobar el rendimiento real: tiempo de indexado y memoria con 27 714 iconos en el cliente.
 - Alias en inglés (sinónimos) si hace falta.
