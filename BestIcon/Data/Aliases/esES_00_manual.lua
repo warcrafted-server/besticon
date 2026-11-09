@@ -25,3 +25,4 @@ A["stew"] = {"estofado", "guiso"}
 A["soup"] = {"sopa"}
 A["pie"] = {"pastel", "tarta"}
 A["table"] = {"mesa"}
+A["dagger"] = {"daga", "punal", "cuchillo"}

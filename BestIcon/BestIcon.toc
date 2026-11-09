@@ -8,10 +8,10 @@
 
 Core/Init.lua
 Core/Config.lua
+Core/DB.lua
 Locales/Locale.lua
 Locales/enUS.lua
 Locales/esES.lua
-UI/Main.lua
 Data/Icons_01.lua
 Data/Icons_02.lua
 Data/Icons_03.lua
@@ -22,3 +22,12 @@ Data/Icons_07.lua
 Data/Icons_08.lua
 Data/Icons_09.lua
 Data/Icons_10.lua
+Data/Aliases/esES_00_manual.lua
+Data/Aliases/esES_01.lua
+Data/Aliases/esES_02.lua
+Data/Aliases/esES_03.lua
+Data/Categories.lua
+Search/Normalize.lua
+Search/Index.lua
+Search/Search.lua
+UI/Main.lua
