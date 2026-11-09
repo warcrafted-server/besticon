@@ -38,6 +38,26 @@ SlashCmdList.BIDUMP = function()
     db.templates[#db.templates + 1] = tpl .. ":" .. tostring(ok)
   end
   table.sort(db.globals)
+  db.api = {}
+  for _, name in ipairs({ "CreateScrollBoxListGridView", "CreateScrollBoxListLinearView", "CreateDataProvider",
+    "ScrollUtil", "MenuUtil", "C_Timer", "SetPortraitToTexture", "Mixin", "CreateFromMixins", "SearchBoxTemplate_OnTextChanged",
+    "PanelTemplates_SetNumTabs", "C_Texture", "GetFileIDFromPath", "C_AddOns", "SetPortraitTextureFromAsset" }) do
+    db.api[#db.api + 1] = name .. ":" .. type(_G[name])
+  end
+  local function keysOf(t)
+    local out = {}
+    if type(t) == "table" then
+      for k, v in pairs(t) do out[#out + 1] = tostring(k) .. ":" .. type(v) end
+      table.sort(out)
+    end
+    return out
+  end
+  db.tables = {}
+  for _, name in ipairs({ "IconSelectorPopupFrameTemplateMixin", "IconSelectorEditBoxMixin",
+    "IconSelectorPopupFrameModes", "IconSelectorPopupFrameIconFilterTypes", "MacroFrame", "MacroPopupFrame",
+    "MacroFrameMixin", "MacroPopupFrameMixin", "C_Macro" }) do
+    db.tables[name] = keysOf(_G[name])
+  end
   BestIconDumpDB = db
   print("BestIconDump: listo (" .. #db.globals .. " globales). Haz /reload para guardar.")
 end
