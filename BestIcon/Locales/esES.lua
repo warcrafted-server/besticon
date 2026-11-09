@@ -37,4 +37,12 @@ BI.RegisterLocale("esES", {
     ["macroNoPopup"] = "Abre /macro, pulsa Nuevo o Cambiar nombre/icono y vuelve a pulsar este botón. También puedes copiar el ID o la ruta.",
     ["macroNotInList"] = "Ese icono no está en la lista del selector; cambia su filtro a Todos.",
     ["macroUnavailable"] = "No se pudo aplicar automáticamente; copia el ID o la ruta.",
+    ["tabAll"] = "Todos",
+    ["tabFavorites"] = "Favoritos",
+    ["tabHistory"] = "Historial",
+    ["favoriteAdd"] = "Favorito",
+    ["favoriteRemove"] = "Quitar favorito",
+    ["favoritesEmpty"] = "Aún no hay favoritos. Clic derecho en un icono para añadirlo.",
+    ["historyEmpty"] = "El historial está vacío.",
+    ["iconSize"] = "Tamaño: %d",
 })

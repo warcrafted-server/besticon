@@ -314,6 +314,73 @@ end
     check(BI.Macros.Apply(7808148) == "noPopup", "estado noPopup sin popup")
     lua.globals().InCombatLockdown = None
 
+    print("(k) favoritos, historial y pestañas")
+    for relative in ("Features/Favorites.lua", "Features/History.lua", "Features/Results.lua"):
+        try:
+            loader((ADDON / relative).read_text(encoding="utf-8"), relative)
+            check(True, "compila " + relative)
+        except Exception as error:
+            check(False, "%s: %s" % (relative, error))
+    check("Features/Favorites.lua" in toc and "Features/History.lua" in toc
+          and "Features/Results.lua" in toc, "TOC incluye Features")
+    if "Features/Results.lua" in toc and "UI/Main.lua" in toc:
+        check(toc.index("Features/Results.lua") < toc.index("UI/Main.lua"),
+              "Features antes de UI/Main")
+
+    lua.execute("BestIconDB = {}")
+    BI.Config.Init()
+    saved = lua.globals().BestIconDB
+    check(BI.Config.Get("activeTab") == 1, "activeTab por defecto")
+
+    lua.execute('BestIconDB.favorites = {7808148, "basura", 7808148, 42}')
+    check(to_list(BI.Favorites.List()) == [7808148, 42], "favoritos ignora basura y duplicados")
+    lua.execute("BestIconDB.favorites = {}")
+    BI.Favorites.Add(7808147)
+    BI.Favorites.Add(7808148)
+    check(to_list(BI.Favorites.List()) == [7808148, 7808147], "favoritos mas reciente primero")
+    check(BI.Favorites.IsFavorite(7808148), "IsFavorite")
+    check(not BI.Favorites.IsFavorite(999999), "IsFavorite falso")
+    BI.Favorites.Remove(7808148)
+    check(to_list(BI.Favorites.List()) == [7808147], "Remove")
+    check(BI.Favorites.Toggle(7808147) == False, "Toggle quita")
+    check(BI.Favorites.Toggle(7808147) == True, "Toggle anade")
+    check(to_list(BI.Favorites.List()) == [7808147], "Toggle estado final")
+    check(len(saved.favorites) == 1 and saved.favorites[1] == 7808147,
+          "favoritos persistidos al cambiar")
+
+    lua.execute("BestIconDB.history = {}")
+    for value in range(1, 46):
+        BI.History.Add(value)
+    history = to_list(BI.History.List())
+    check(len(history) == 40, "historial maximo 40")
+    check(history[0] == 45 and history[-1] == 6, "historial mas reciente primero")
+    BI.History.Add(45)
+    check(to_list(BI.History.List())[0] == 45 and len(to_list(BI.History.List())) == 40,
+          "historial sin duplicados")
+    BI.History.Clear()
+    check(to_list(BI.History.List()) == [], "historial Clear")
+    check(len(saved.history) == 0, "historial persistido al limpiar")
+
+    BI.Favorites.Add(7808148)
+    BI.Favorites.Add(7808147)
+    favorites_order = [id_of(p) for p in to_list(BI.UI.BuildResults(2, "", None))]
+    check(favorites_order == [7808147, 7808148], "favoritos vacio respeta orden")
+    favorites_search = to_list(BI.UI.BuildResults(2, "campfire", None))
+    check({id_of(p) for p in favorites_search} == {7808147, 7808148},
+          "favoritos con consulta solo devuelve favoritos")
+    check(len(BI.UI.BuildResults(1, "", None)) == BI.DB.Count(), "Todos devuelve catalogo")
+    BI.Favorites.Remove(7808148)
+    BI.Favorites.Remove(7808147)
+    check(to_list(BI.UI.BuildResults(2, "", None)) == [], "favoritos vacio sin datos")
+
+    BI.History.Add(7808148)
+    BI.History.Add(7808147)
+    check([id_of(p) for p in to_list(BI.UI.BuildResults(3, "", None))] == [7808147, 7808148],
+          "historial vacio respeta orden")
+    history_search = to_list(BI.UI.BuildResults(3, "campfire", None))
+    check({id_of(p) for p in history_search} == {7808147, 7808148},
+          "historial con consulta solo devuelve historial")
+
     total = time.perf_counter() - started
     print("Tiempo total: %.3f s" % total)
     if failures:

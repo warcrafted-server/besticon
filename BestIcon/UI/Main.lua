@@ -10,6 +10,9 @@ local statusText
 local windowGrid
 local info
 local warned = {}
+local activeTab = 1
+local slider
+local sizeLabel
 
 function BI.UI.NotifyOnce(key, api)
     if warned[key] then
@@ -229,8 +232,83 @@ local function createResizeGrabber()
     end)
 end
 
+local function createSlider(content)
+    local ok, created = pcall(CreateFrame, "Slider", nil, content, "MinimalSliderTemplate")
+    if not ok or not created then
+        BI.UI.NotifyOnce("MinimalSliderTemplate", "MinimalSliderTemplate")
+        return
+    end
+    local setup = pcall(function()
+        created:SetSize(120, 16)
+        created:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -12, 10)
+        created:SetMinMaxValues(24, 64)
+        if type(created.SetValueStep) == "function" then
+            created:SetValueStep(4)
+        end
+        if type(created.SetObeyStepOnDrag) == "function" then
+            created:SetObeyStepOnDrag(true)
+        end
+        local value = BI.Grid.ClampIconSize(BI.Config.Get("iconSize"))
+        sizeLabel = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        sizeLabel:SetPoint("RIGHT", created, "LEFT", -6, 0)
+        sizeLabel:SetText(string.format(BI.L["iconSize"], value))
+        created:SetValue(value)
+        created:SetScript("OnValueChanged", function(_, changed)
+            local size = BI.Grid.ClampIconSize(changed)
+            sizeLabel:SetText(string.format(BI.L["iconSize"], size))
+            if BI.Config.Get("iconSize") ~= size then
+                BI.Config.Set("iconSize", size)
+                if windowGrid then
+                    windowGrid:SetIconSize(size)
+                end
+            end
+        end)
+    end)
+    if setup then
+        slider = created
+    else
+        BI.UI.NotifyOnce("MinimalSliderTemplate", "MinimalSliderTemplate")
+        created:Hide()
+    end
+end
+
+local function createTabs()
+    if type(PanelTemplates_SetNumTabs) == "function" then
+        pcall(PanelTemplates_SetNumTabs, frame, 3)
+    end
+    local labels = { BI.L["tabAll"], BI.L["tabFavorites"], BI.L["tabHistory"] }
+    local previous
+    for i = 1, 3 do
+        local ok, tab = pcall(CreateFrame, "Button", "BestIconFrameTab" .. i, frame, "PanelTabButtonTemplate")
+        if ok and tab then
+            tab:SetText(labels[i])
+            if previous then
+                tab:SetPoint("LEFT", previous, "RIGHT", 0, 0)
+            else
+                tab:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 11, -30)
+            end
+            tab:SetScript("OnClick", function()
+                BI.UI.SelectTab(i)
+            end)
+            if type(PanelTemplates_TabResize) == "function" then
+                pcall(PanelTemplates_TabResize, tab, 0)
+            end
+            previous = tab
+        else
+            BI.UI.NotifyOnce("PanelTabButtonTemplate", "PanelTabButtonTemplate")
+        end
+    end
+    if type(PanelTemplates_SetTab) == "function" then
+        pcall(PanelTemplates_SetTab, frame, activeTab)
+    end
+end
+
 local function createContent()
     local content = frame.Inset or frame
+    activeTab = tonumber(BI.Config.Get("activeTab")) or 1
+    if activeTab < 1 or activeTab > 3 then
+        activeTab = 1
+    end
     searchBox = createSearchBox(content)
     categoryButton = createCategoryButton(content)
 
@@ -251,8 +329,10 @@ local function createContent()
 
     statusText = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     statusText:SetPoint("BOTTOMLEFT", content, "BOTTOMLEFT", 12, 12)
-    statusText:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -12, 12)
+    statusText:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -176, 12)
     statusText:SetJustifyH("LEFT")
+    createSlider(content)
+    createTabs()
 
     local last = BI.Config.Get("lastSelected")
     if last and last > 0 then
@@ -336,20 +416,59 @@ function BI.UI.RunSearch()
         return
     end
     local query = searchBox and searchBox:GetText() or ""
-    local results = BI.Search.Run(query, categoryKey)
+    local results = BI.UI.BuildResults(activeTab, query, categoryKey)
     if windowGrid then
         windowGrid:Update(results)
     end
     if statusText then
-        statusText:SetText(string.format(BI.L["statusIcons"], #results))
+        local empty
+        if activeTab == 2 and #BI.Favorites.List() == 0 then
+            empty = BI.L["favoritesEmpty"]
+        elseif activeTab == 3 and #BI.History.List() == 0 then
+            empty = BI.L["historyEmpty"]
+        end
+        statusText:SetText(empty or string.format(BI.L["statusIcons"], #results))
     end
     if info and BI.UI.selected then
         info:Show(BI.UI.selected)
     end
 end
 
+function BI.UI.SelectTab(tab)
+    tab = tonumber(tab) or 1
+    if tab < 1 or tab > 3 then
+        tab = 1
+    end
+    activeTab = tab
+    BI.Config.Set("activeTab", tab)
+    if frame and type(PanelTemplates_SetTab) == "function" then
+        pcall(PanelTemplates_SetTab, frame, tab)
+    end
+    BI.UI.RunSearch()
+end
+
+function BI.UI.ToggleFavorite(pos)
+    local id = BI.DB.Get(pos)
+    if not id then
+        return
+    end
+    BI.Favorites.Toggle(id)
+    if windowGrid then
+        windowGrid:RefreshFavorites()
+    end
+    if activeTab == 2 then
+        BI.UI.RunSearch()
+    elseif info and BI.UI.selected then
+        info:Show(BI.UI.selected)
+    end
+end
+
 function BI.UI.SelectIcon(pos)
     BI.UI.selected = pos
+    local id = BI.DB.Get(pos)
+    if id then
+        BI.History.Add(id)
+    end
     BI.Config.Set("lastSelected", pos)
     if windowGrid then
         windowGrid:RefreshSelection(pos)

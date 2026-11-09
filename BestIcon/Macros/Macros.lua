@@ -108,6 +108,9 @@ function BI.Macros.UsePosition(position)
     if not id then
         return nil
     end
+    if BI.History then
+        BI.History.Add(id)
+    end
     local state = BI.Macros.Apply(id)
     BI.Macros.Report(state)
     return state

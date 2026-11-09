@@ -5,6 +5,20 @@ BI.Grid = BI.Grid or {}
 local Grid = {}
 Grid.__index = Grid
 
+function Grid.ClampIconSize(value)
+    value = tonumber(value) or 36
+    value = math.floor((value - 24) / 4 + 0.5) * 4 + 24
+    if value < 24 then
+        return 24
+    end
+    if value > 64 then
+        return 64
+    end
+    return value
+end
+
+BI.Grid.ClampIconSize = Grid.ClampIconSize
+
 function Grid.ComputeStride(parentWidth, iconSize)
     local stride = math.floor(((parentWidth or 0) - 32) / (iconSize + 4))
     if stride < 1 then
@@ -19,10 +33,9 @@ local function notify(key)
     end
 end
 
-local function initButton(button, onSelect, iconSize, buttons)
+local function initButton(button, buttons)
     if not button.bestIconInitialized then
         button.bestIconInitialized = true
-        button:SetSize(iconSize, iconSize)
 
         local slot = button:CreateTexture(nil, "BACKGROUND")
         slot:SetAllPoints()
@@ -42,9 +55,22 @@ local function initButton(button, onSelect, iconSize, buttons)
         selected:Hide()
         button.selected = selected
 
+        local favorite = button:CreateTexture(nil, "OVERLAY")
+        favorite:SetSize(14, 14)
+        favorite:SetPoint("TOPRIGHT", button, "TOPRIGHT", 0, 0)
+        favorite:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcon_1")
+        favorite:Hide()
+        button.favorite = favorite
+
         button:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
-        button:SetScript("OnClick", function(self)
-            if self.onSelect and self.position then
+        button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        button:SetScript("OnClick", function(self, mouseButton)
+            if not self.position then
+                return
+            end
+            if mouseButton == "RightButton" then
+                BI.UI.ToggleFavorite(self.position)
+            elseif self.onSelect then
                 self.onSelect(self.position)
             end
         end)
@@ -78,11 +104,17 @@ local function initButton(button, onSelect, iconSize, buttons)
     end
 end
 
-local function setButton(button, position, onSelect)
+local function setButton(button, position, onSelect, iconSize)
     button.position = position
     button.onSelect = onSelect
+    button:SetSize(iconSize, iconSize)
     local id = BI.DB.Get(position)
     button.icon:SetTexture(id)
+    if id and BI.Favorites and BI.Favorites.IsFavorite(id) then
+        button.favorite:Show()
+    else
+        button.favorite:Hide()
+    end
     if BI.UI.selected == position then
         button.selected:Show()
     else
@@ -91,8 +123,9 @@ local function setButton(button, position, onSelect)
 end
 
 function BI.Grid.Create(parent, onSelect)
-    local iconSize = BI.Config.Get("iconSize") or 36
+    local iconSize = Grid.ClampIconSize(BI.Config.Get("iconSize"))
     local grid = setmetatable({
+        iconSize = iconSize,
         parent = parent,
         onSelect = onSelect,
         buttons = {},
@@ -138,8 +171,8 @@ function BI.Grid.Create(parent, onSelect)
     end
 
     local function setup(button, elementData)
-        initButton(button, onSelect, iconSize, grid.buttons)
-        setButton(button, elementData, onSelect)
+        initButton(button, grid.buttons)
+        setButton(button, elementData, onSelect, grid.iconSize)
     end
 
     local factorySet = false
@@ -190,8 +223,7 @@ function Grid:Resize()
     if not self.parent or not self.view then
         return
     end
-    local iconSize = BI.Config.Get("iconSize") or 36
-    local stride = Grid.ComputeStride(self.parent:GetWidth(), iconSize)
+    local stride = Grid.ComputeStride(self.parent:GetWidth(), self.iconSize)
     self.stride = stride
     if type(self.view.SetStride) == "function" then
         local ok = pcall(self.view.SetStride, self.view, stride)
@@ -203,6 +235,29 @@ function Grid:Resize()
     end
     if self.scrollBox and type(self.scrollBox.FullUpdate) == "function" then
         pcall(self.scrollBox.FullUpdate, self.scrollBox)
+    end
+end
+
+function Grid:SetIconSize(size)
+    self.iconSize = Grid.ClampIconSize(size)
+    if self.view and type(self.view.SetElementExtent) == "function" then
+        pcall(self.view.SetElementExtent, self.view, self.iconSize)
+    end
+    for i = 1, #self.buttons do
+        self.buttons[i]:SetSize(self.iconSize, self.iconSize)
+    end
+    self:Resize()
+end
+
+function Grid:RefreshFavorites()
+    for i = 1, #self.buttons do
+        local button = self.buttons[i]
+        local id = button.position and BI.DB.Get(button.position)
+        if id and BI.Favorites and BI.Favorites.IsFavorite(id) then
+            button.favorite:Show()
+        else
+            button.favorite:Hide()
+        end
     end
 end
 

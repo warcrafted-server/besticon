@@ -30,6 +30,9 @@ Data/Categories.lua
 Search/Normalize.lua
 Search/Index.lua
 Search/Search.lua
+Features/Favorites.lua
+Features/History.lua
+Features/Results.lua
 Macros/Macros.lua
 UI/Main.lua
 UI/Grid.lua

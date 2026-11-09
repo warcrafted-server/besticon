@@ -7,6 +7,7 @@ local defaults = {
     width = 400,
     height = 500,
     iconSize = 36,
+    activeTab = 1,
     favorites = {},
     history = {},
 }

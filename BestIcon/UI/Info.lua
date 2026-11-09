@@ -121,6 +121,21 @@ function BI.Info.Create(parent)
         BI.UI.NotifyOnce("UIPanelButtonTemplate", "UIPanelButtonTemplate")
     end
 
+    local okFav, favButton = pcall(CreateFrame, "Button", nil, parent, "UIPanelButtonTemplate")
+    if okFav and favButton then
+        favButton:SetSize(150, 22)
+        favButton:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -10, 8)
+        favButton:SetText(BI.L["favoriteAdd"])
+        favButton:SetScript("OnClick", function()
+            if panel.position then
+                BI.UI.ToggleFavorite(panel.position)
+            end
+        end)
+        panel.favButton = favButton
+    elseif BI.UI.NotifyOnce then
+        BI.UI.NotifyOnce("UIPanelButtonTemplate", "UIPanelButtonTemplate")
+    end
+
     local noSelection = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     noSelection:SetPoint("CENTER", parent, "CENTER", 0, 0)
     noSelection:SetText(BI.L["infoNoSelection"])
@@ -128,8 +143,17 @@ function BI.Info.Create(parent)
 
     function panel:Show(pos)
         local id, raw = BI.DB.Get(pos)
+        panel.position = id and pos or nil
         if panel.useButton then
             panel.useButton:SetEnabled(id ~= nil)
+        end
+        if panel.favButton then
+            panel.favButton:SetEnabled(id ~= nil)
+            if id and BI.Favorites and BI.Favorites.IsFavorite(id) then
+                panel.favButton:SetText(BI.L["favoriteRemove"])
+            else
+                panel.favButton:SetText(BI.L["favoriteAdd"])
+            end
         end
         if not id then
             preview:Hide()
