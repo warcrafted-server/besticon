@@ -1,0 +1,24 @@
+## Interface: 16001
+## Title: Best Icon
+## Notes: Visual icon browser.
+## Notes-esES: Buscador visual de iconos del cliente.
+## Version: 0.1.0
+## Author: warcrafted-server
+## SavedVariables: BestIconDB
+
+Core/Init.lua
+Core/Config.lua
+Locales/Locale.lua
+Locales/enUS.lua
+Locales/esES.lua
+UI/Main.lua
+Data/Icons_01.lua
+Data/Icons_02.lua
+Data/Icons_03.lua
+Data/Icons_04.lua
+Data/Icons_05.lua
+Data/Icons_06.lua
+Data/Icons_07.lua
+Data/Icons_08.lua
+Data/Icons_09.lua
+Data/Icons_10.lua
