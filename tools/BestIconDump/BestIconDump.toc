@@ -1,0 +1,6 @@
+## Interface: 16001
+## Title: BestIconDump (herramienta de desarrollo)
+## Notes: Vuelca las listas de iconos del cliente a SavedVariables. Escribe /bidump y luego /reload.
+## Version: 0.1.0
+## SavedVariables: BestIconDumpDB
+BestIconDump.lua
