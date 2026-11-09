@@ -14,7 +14,7 @@ Estados: CONFIRMADA / VERIFICADA / EXPERIMENTAL / NO DISPONIBLE / DESCONOCIDA. N
 ## Iconos
 
 - El catálogo de iconos son BLP en `Interface/ICONS/` dentro de CASC, referenciables por ruta o FileDataID. VERIFICADA (listfile).
-- `community-listfile.csv` (wow-listfile, 154 MB, descargado y analizado): **37 112** rutas `interface/icons/*`. Incluye `inv_camelot_camping_campbenefits` (7808144) e `inv_camelot_camping_campfirenearby` (7808147). **`WelcomingCampfire` no aparece** en el listfile: hay que comprobarlo en el cliente. Los nombres no están verificados (aviso del propio repo).
+- `community-listfile.csv` (wow-listfile, 154 MB, descargado y analizado): **37 112** rutas `interface/icons/*`. Incluye `inv_camelot_camping_campbenefits` (7808144) e `inv_camelot_camping_campfirenearby` (7808147). `inv_camelot_camping_welcomingcampfire` (7808148) también está: mi afirmación inicial de que faltaba era un error de lectura. Los nombres no están verificados (aviso del propio repo).
 - Licencia del listfile: **DESCONOCIDA** (sin LICENSE visible). No incluirlo tal cual en el addon sin resolverlo.
 - Alternativa propia: enumerar `Interface/ICONS` directamente del CASC local con CascLib (MIT). Sin licencia dudosa y refleja el build real. Pendiente de probar que CascLib abre este build (DESCONOCIDA).
 - Los iconos nuevos de Forever pueden faltar en el listfile; extraer del cliente es la vía fiable.
@@ -47,3 +47,11 @@ Decididas: cuenta GitHub `warcrafted-server`; comando `/besticon` (alias `/bi`);
 
 1. **Volcado en el juego**: copiar `tools/BestIconDump` a `_forever_/Interface/AddOns/`, `/bidump` y `/reload`. Genera `BestIconDumpDB` en SavedVariables con las listas reales de iconos y los globales del selector.
 2. **Licencia** del proyecto: pendiente, la decides tú antes del primer push.
+
+## Volcado del cliente (`/bidump`, 9-11-2026) — CONFIRMADA
+
+- `GetMacroIcons()` devuelve 2 688 FileDataIDs numéricos; `GetMacroItemIcons()` 25 026; unión sin duplicados: **27 714**. `GetLooseMacroIcons()` devuelve lista vacía. Todas se llaman pasándoles una tabla que rellenan.
+- Los 27 714 IDs tienen nombre en el listfile comunitario (`interface/icons/*`). Los tres iconos `inv_camelot_camping_*` están en el volcado.
+- El listfile tiene 9 398 iconos más que el cliente no lista como iconos de macro. El catálogo se basa en el volcado, no en el listfile.
+- Globales del selector presentes: `IconSelectorEditBoxMixin`, `IconSelectorPopupFrameIconFilterTypes`, `IconSelectorPopupFrameModes`, `IconSelectorPopupFrameTemplateMixin`, `IsAnyIconSelectorPopupFrameShown`, `MacroFrame_LoadUI`, `ShowMacroFrame`. Esto indica que el selector compartido de Blizzard existe (integración posible, EXPERIMENTAL hasta probarla).
+- Siguiente: los nombres siguen dependiendo del listfile (licencia desconocida).

@@ -1,7 +1,7 @@
 # Pendiente
 
 ## Alta
-- Ejecutar `tools/BestIconDump` en el cliente y analizar el volcado.
+- Fase 2: probar en el cliente la integración con el selector de macros (mixin `IconSelectorPopupFrameTemplateMixin`).
 - Decidir la licencia del proyecto (con la Skill `licencias`).
 - Fase 2: diseño (arquitectura, datos, búsqueda, i18n).
 
