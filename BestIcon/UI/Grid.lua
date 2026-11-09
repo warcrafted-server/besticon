@@ -157,12 +157,12 @@ function BI.Grid.Create(parent, onSelect)
     end
     local track = slider:CreateTexture(nil, "BACKGROUND")
     track:SetAllPoints()
-    track:SetColorTexture(0, 0, 0, 0.35)
-    slider:SetThumbTexture("Interface\Buttons\UI-ScrollBar-Knob")
-    local thumb = slider:GetThumbTexture()
-    if thumb then
-        thumb:SetSize(18, 24)
-    end
+    track:SetColorTexture(0.05, 0.04, 0.03, 0.9)
+    local thumb = slider:CreateTexture(nil, "OVERLAY")
+    thumb:SetColorTexture(0.62, 0.5, 0.2, 1)
+    thumb:SetSize(14, 40)
+    slider:SetThumbTexture(thumb)
+    grid.thumb = thumb
     slider:SetValue(0)
     slider:SetScript("OnValueChanged", function(_, value)
         local row = math.floor((value or 0) + 0.5)
@@ -201,6 +201,11 @@ function Grid:Layout()
     end
     self.slider:SetValue(self.row)
     self.slider:SetEnabled(maxRow > 0)
+    if self.thumb then
+        local track = self.slider:GetHeight() or 0
+        local size = track * visibleRows / math.max(totalRows, 1)
+        self.thumb:SetHeight(math.max(24, math.min(size, track)))
+    end
 end
 
 function Grid:Render()
