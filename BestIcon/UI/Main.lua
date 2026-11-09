@@ -236,13 +236,13 @@ local function createContent()
 
     local gridInset = createInset(content)
     gridInset:SetPoint("TOPLEFT", content, "TOPLEFT", 12, -48)
-    gridInset:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -12, 154)
+    gridInset:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -12, 184)
     windowGrid = BI.Grid.Create(gridInset, function(pos)
         BI.UI.SelectIcon(pos)
     end)
 
     local infoInset = createInset(content)
-    infoInset:SetHeight(110)
+    infoInset:SetHeight(140)
     infoInset:SetPoint("BOTTOMLEFT", content, "BOTTOMLEFT", 12, 34)
     infoInset:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -12, 34)
     if BI.Info and BI.Info.Create then

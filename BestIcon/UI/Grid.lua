@@ -48,6 +48,12 @@ local function initButton(button, onSelect, iconSize, buttons)
                 self.onSelect(self.position)
             end
         end)
+        button:SetScript("OnDoubleClick", function(self)
+            if self.position and BI.Macros then
+                BI.UI.SelectIcon(self.position)
+                BI.Macros.UsePosition(self.position)
+            end
+        end)
         button:SetScript("OnEnter", function(self)
             if type(GameTooltip) ~= "table" or not self.position then
                 return

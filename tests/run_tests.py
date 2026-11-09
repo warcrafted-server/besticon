@@ -256,6 +256,64 @@ def main():
         check(toc.index("UI/Main.lua") < toc.index("UI/Grid.lua") < toc.index("UI/Info.lua"),
               "orden Main, Grid, Info")
 
+    print("(j) macros")
+    try:
+        loader((ADDON / "Macros" / "Macros.lua").read_text(encoding="utf-8"), "Macros/Macros.lua")
+        check(True, "compila Macros/Macros.lua")
+    except Exception as error:
+        check(False, "Macros/Macros.lua: %s" % error)
+    check("Macros/Macros.lua" in toc, "TOC incluye Macros/Macros.lua")
+    if "Macros/Macros.lua" in toc and "UI/Main.lua" in toc:
+        check(toc.index("Macros/Macros.lua") < toc.index("UI/Main.lua"),
+              "Macros antes de UI/Main")
+
+    lua.execute("""
+function TestPopup()
+    local popup = { shown = true, icons = {7808148, 42}, confirmCalls = 0, selected = nil }
+    function popup:IsShown() return self.shown end
+    function popup:GetIndexOfIcon(id)
+        for i, value in ipairs(self.icons) do
+            if value == id then return i end
+        end
+    end
+    function popup:GetSelectedIndex() return self.selected end
+    function popup:SetSelectedIconText() self.textSet = true end
+    function popup:ConfirmIcon() self.confirmCalls = self.confirmCalls + 1 end
+    popup.IconSelector = {}
+    function popup.IconSelector:SetSelectedIndex(index)
+        self.selectedIndex = index
+        popup.selected = index
+    end
+    function popup.IconSelector:ScrollToSelectedIndex() popup.scrolled = true end
+    return popup
+end
+""")
+    popup = lua.eval("TestPopup()")
+    lua.globals().MacroPopupFrame = popup
+    check(BI.Macros.Apply(7808148) == "applied", "estado applied")
+    check(popup.selected == 1, "indice seleccionado")
+    check(popup.confirmCalls == 0, "ConfirmIcon no llamado")
+
+    check(BI.Macros.Apply(999999) == "notInList", "estado notInList")
+    popup.shown = False
+    check(BI.Macros.Apply(7808148) == "noPopup", "estado noPopup")
+    popup.shown = True
+    popup.IconSelector = None
+    check(BI.Macros.Apply(7808148) == "unavailable", "estado unavailable sin IconSelector")
+
+    broken = lua.eval("TestPopup()")
+    lua.globals().MacroPopupFrame = broken
+    lua.execute('MacroPopupFrame.IconSelector.SetSelectedIndex = function() error("boom") end')
+    check(BI.Macros.Apply(7808148) == "unavailable", "estado unavailable con error")
+    check(broken.confirmCalls == 0, "ConfirmIcon sigue sin llamarse")
+
+    lua.execute("function InCombatLockdown() return true end")
+    check(BI.Macros.Apply(42) == "unavailable", "estado unavailable en combate")
+    lua.execute("function InCombatLockdown() return false end")
+    lua.globals().MacroPopupFrame = None
+    check(BI.Macros.Apply(7808148) == "noPopup", "estado noPopup sin popup")
+    lua.globals().InCombatLockdown = None
+
     total = time.perf_counter() - started
     print("Tiempo total: %.3f s" % total)
     if failures:

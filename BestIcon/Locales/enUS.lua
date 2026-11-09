@@ -31,4 +31,10 @@ BI.RegisterLocale("enUS", {
     ["tooltipId"] = "ID: %d",
     ["tooltipPath"] = "Path: %s",
     ["uiApiMissing"] = "Best Icon: %s is unavailable; using a fallback.",
+    ["macroButton"] = "Best Icon",
+    ["macroUse"] = "Use in macro",
+    ["macroApplied"] = "Icon set in the macro selector. Press OK in the macro window.",
+    ["macroNoPopup"] = "Open /macro, press New or Change Name/Icon and press this button again. You can also copy the ID or path.",
+    ["macroNotInList"] = "That icon is not in the selector list; change its filter to All.",
+    ["macroUnavailable"] = "It could not be applied automatically; copy the ID or path.",
 })

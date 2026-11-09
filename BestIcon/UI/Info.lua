@@ -106,6 +106,21 @@ function BI.Info.Create(parent)
     keywords:SetJustifyH("LEFT")
     panel.keywords = keywords
 
+    local okUse, useButton = pcall(CreateFrame, "Button", nil, parent, "UIPanelButtonTemplate")
+    if okUse and useButton then
+        useButton:SetSize(130, 22)
+        useButton:SetPoint("BOTTOMLEFT", parent, "BOTTOMLEFT", 10, 8)
+        useButton:SetText(BI.L["macroUse"])
+        useButton:SetScript("OnClick", function()
+            if BI.UI.selected and BI.Macros then
+                BI.Macros.UsePosition(BI.UI.selected)
+            end
+        end)
+        panel.useButton = useButton
+    elseif BI.UI.NotifyOnce then
+        BI.UI.NotifyOnce("UIPanelButtonTemplate", "UIPanelButtonTemplate")
+    end
+
     local noSelection = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     noSelection:SetPoint("CENTER", parent, "CENTER", 0, 0)
     noSelection:SetText(BI.L["infoNoSelection"])
@@ -113,6 +128,9 @@ function BI.Info.Create(parent)
 
     function panel:Show(pos)
         local id, raw = BI.DB.Get(pos)
+        if panel.useButton then
+            panel.useButton:SetEnabled(id ~= nil)
+        end
         if not id then
             preview:Hide()
             name:SetText("")
