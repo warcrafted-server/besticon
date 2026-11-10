@@ -14,7 +14,7 @@ Guía para quien sube el proyecto. Base: documentación de autores de CurseForge
 2. **Name:** `Best Icon` (debe ser único). **Summary:** «Visual icon browser for WoW Forever: search 27,714 icons by name in English and Spanish, preview them and copy IDs or paths for macros.»
 3. **Description:** pegar `DESCRIPTION.md` en el editor Markdown. **Logo:** `logo.png` (400×400, PNG).
 4. **Categorías:** elegir las que mejor encajen entre las que ofrezca el desplegable (Main y hasta 4 adicionales).
-5. **License:** *Custom License* y pegar el texto de `LICENSE` (WNCL-TP-1.0); las licencias estándar no la cubren.
+5. **License:** si hay *Custom License*, pegar el texto de `LICENSE` (WNCL-TP-1.0). Si solo hay licencias estándar, elegir *All Rights Reserved* (la que menos concede); la descripción ya remite al `LICENSE` del repositorio, que es el que manda.
 6. Galería: pestaña *Images* del proyecto, con título y descripción por imagen.
 
 ## Subir el archivo

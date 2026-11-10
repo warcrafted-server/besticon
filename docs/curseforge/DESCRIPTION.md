@@ -37,7 +37,7 @@ Bugs and ideas: https://github.com/warcrafted-server/besticon/issues
 
 ## License
 
-[WNCL-TP-1.0](https://github.com/warcrafted-server/besticon/blob/master/LICENSE): free to use, study, modify and share for non-commercial purposes. Selling or any commercial use requires written permission. Third-party material (icon names) keeps its own terms; see CREDITS.md.
+The license selector on this page only offers standard licenses, so it shows the closest one. The terms that apply are those of [WNCL-TP-1.0](https://github.com/warcrafted-server/besticon/blob/master/LICENSE): free to use, study, modify and share for non-commercial purposes. Selling or any commercial use requires written permission. Third-party material (icon names) keeps its own terms; see CREDITS.md.
 
 ---
 
