@@ -20,4 +20,5 @@ Primera versión. Probada en el cliente: ventana, cuadrícula, búsqueda y panel
 - Herramientas de desarrollo: `tools/BestIconDump` (volcado en el juego), `tools/build_catalog.py`, `tools/build_vocab.py`.
 - Tests fuera del cliente (`tests/run_tests.py`, `tests/run_ui_smoke.py`).
 - Licencia WNCL-TP-1.0 (titular WarCrafted) y `CREDITS.md` con el material de terceros (nombres de iconos del listfile comunitario, sin licencia declarada).
+- Material de publicación en CurseForge (`docs/curseforge/`) y `tools/package.py` para generar el zip.
 - Documentación: README, informe de investigación, arquitectura y cobertura de idiomas.
