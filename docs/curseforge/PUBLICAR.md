@@ -5,7 +5,7 @@ Guía para quien sube el proyecto. Base: documentación de autores de CurseForge
 ## Antes de subir
 
 1. `python tools/package.py` genera `dist/BestIcon-<versión>.zip` (una sola carpeta raíz `BestIcon/`, con `LICENSE` y `CREDITS.md`).
-2. Probar en el cliente lo que la descripción promete: pestañas, favoritos y el botón *Usar en macro*. Si algo falla, quitarlo de `DESCRIPTION.md`.
+2. Probar en el cliente lo que la descripción promete: pestañas, favoritos y el botón *Usar en macro* (ya confirmados en el cliente). Si algo falla, quitarlo de `DESCRIPTION.md`.
 3. Capturas limpias (sin chat) para la galería: (a) ventana con la búsqueda «campfire»; (b) la misma con «hoguera»; (c) panel de información de un icono; (d) ventana junto a `/macro` con el selector abierto; (e) pestaña Favoritos.
 
 ## Crear el proyecto

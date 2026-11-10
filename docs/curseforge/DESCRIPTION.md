@@ -14,7 +14,7 @@ Perfect for macros and for anyone who has ever scrolled the default macro icon l
 - **Info panel** with a large preview, name, ID, path, categories and keywords. ID and path are selectable, so you can copy them with Ctrl+C.
 - **Categories:** camps, food and drink, weapons, armor, magic, fire, water, nature, creatures, professions, mounts, pets and more.
 - **Favorites and history:** right-click an icon to favorite it; the last 40 icons you picked are kept.
-- **Macro helper (experimental):** with the macro icon picker open, press *Use in macro* or double-click an icon and Best Icon selects it for you. You still confirm in the macro window.
+- **Macro helper:** with the macro icon picker open, press *Use in macro* or double-click an icon and Best Icon selects it for you. You still confirm in the macro window.
 - **Native look.** Built with the game's own frame templates so it sits next to the macro window as if it were part of the UI.
 - **Translated interface:** English and Spanish, with automatic fallback.
 
@@ -28,7 +28,7 @@ Perfect for macros and for anyone who has ever scrolled the default macro icon l
 ## Notes
 
 - Made for WoW Forever (Interface 16001). It is not meant for Retail, Classic Era or other clients.
-- Applying an icon to a macro is not possible through the game API, so Best Icon drives the standard icon picker instead. This part is **experimental**; if it cannot apply the icon it tells you in chat and you can copy the ID or path.
+- Applying an icon to a macro is not possible through the game API, so Best Icon drives the standard icon picker instead. You confirm in the macro window; if the icon cannot be applied it tells you in chat and you can copy the ID or path.
 - Icon names come from the community listfile (see credits). Icons themselves belong to Blizzard Entertainment and are never redistributed.
 
 ## Feedback
@@ -52,11 +52,11 @@ Bugs and ideas: https://github.com/warcrafted-server/besticon/issues
 - **Cuadrícula visual** con tamaño ajustable, rueda del ratón y ventana movible y redimensionable.
 - **Panel de información** con vista previa, nombre, ID, ruta, categorías y palabras clave, copiables con Ctrl+C.
 - **Categorías, favoritos** (clic derecho) **e historial** de los últimos 40.
-- **Ayuda para macros (experimental):** con el selector de iconos de macros abierto, pulsa *Usar en macro* o haz doble clic en un icono; tú confirmas en la ventana de macros.
+- **Ayuda para macros:** con el selector de iconos de macros abierto, pulsa *Usar en macro* o haz doble clic en un icono; tú confirmas en la ventana de macros.
 - **Aspecto nativo**, con las plantillas del propio juego, e interfaz en español e inglés.
 
 ## Uso
 
 `/bi` o `/besticon` abre y cierra la ventana. Escribe una palabra, un ID o una ruta; clic en un icono para ver sus datos y clic derecho para marcarlo como favorito.
 
-Hecho para WoW Forever (Interface 16001). La asignación de iconos a macros no es posible con la API del juego, por eso esa parte es experimental.
+Hecho para WoW Forever (Interface 16001). La API del juego no permite asignar iconos a macros, así que Best Icon selecciona el icono en el selector estándar y tú confirmas.

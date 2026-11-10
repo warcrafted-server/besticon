@@ -2,7 +2,7 @@
 
 Buscador visual de iconos para **WoW Forever** (build 1.60.1.70862, Interface 16001). Busca entre los 27 714 iconos del cliente por palabras en español o inglés y facilita usarlos en macros.
 
-> Estado: versión 0.1.0. Ventana, cuadrícula, búsqueda y panel de información probados en el cliente; la integración con el selector de macros sigue siendo experimental (ver [Estado de las funciones](#estado-de-las-funciones)).
+> Estado: versión 0.1.0. Todas las funciones probadas en el cliente (ver [Estado de las funciones](#estado-de-las-funciones)).
 
 ## Requisitos
 
@@ -41,7 +41,7 @@ Clasificación: CONFIRMADA (comprobada en el cliente), VERIFICADA (datos o tests
 | Búsqueda bilingüe, categorías, favoritos e historial | VERIFICADA (tests) |
 | Cuadrícula, búsqueda, selección y panel de información | CONFIRMADA (probado en el cliente) |
 | Pestañas, favoritos y deslizador de tamaño | CONFIRMADA (probado en el cliente) |
-| Fijar el icono en el selector de macros de Blizzard | EXPERIMENTAL |
+| Fijar el icono en el selector de macros de Blizzard | CONFIRMADA (probado en el cliente) |
 | Asignar un icono a una macro con la API (`C_Macro`) | NO DISPONIBLE (solo tiene `RunMacroText`, `GetMacroName`, `GetSelectedMacroIcon`) |
 
 Detalles técnicos: [docs/INFORME-FASE1.md](docs/INFORME-FASE1.md), [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) y [docs/COBERTURA-IDIOMAS.md](docs/COBERTURA-IDIOMAS.md).

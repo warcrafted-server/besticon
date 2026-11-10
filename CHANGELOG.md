@@ -6,7 +6,7 @@ Formato [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/), versionado 
 
 ## [0.1.0] - 2026-11-10
 
-Primera versión. Probada en el cliente: ventana, cuadrícula, búsqueda y panel de información.
+Primera versión. Probada en el cliente.
 
 ### Añadido
 - Addon `BestIcon` para WoW Forever (Interface 16001): comandos `/besticon` y `/bi`.
@@ -15,7 +15,7 @@ Primera versión. Probada en el cliente: ventana, cuadrícula, búsqueda y panel
 - Categorías ampliables (Campamentos, Comida y bebida, Armas, etc.).
 - Interfaz con aspecto nativo: marco con retrato, caja de búsqueda, cuadrícula virtualizada propia (marcos y deslizador estándar), panel de información con ID y ruta copiables, ventana movible y redimensionable.
 - Favoritos, historial (40), pestañas Todos/Favoritos/Historial y tamaño de icono ajustable, con persistencia.
-- Integración con el selector de iconos de macros de Blizzard (experimental) con instrucciones de respaldo.
+- Integración con el selector de iconos de macros de Blizzard con instrucciones de respaldo.
 - Localización esES/enUS con respaldo.
 - Herramientas de desarrollo: `tools/BestIconDump` (volcado en el juego), `tools/build_catalog.py`, `tools/build_vocab.py`.
 - Tests fuera del cliente (`tests/run_tests.py`, `tests/run_ui_smoke.py`).
