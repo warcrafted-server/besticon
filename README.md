@@ -40,7 +40,7 @@ Clasificación: CONFIRMADA (comprobada en el cliente), VERIFICADA (datos o tests
 | Catálogo de 27 714 iconos (`GetMacroIcons` + `GetMacroItemIcons`) | CONFIRMADA |
 | Búsqueda bilingüe, categorías, favoritos e historial | VERIFICADA (tests) |
 | Cuadrícula, búsqueda, selección y panel de información | CONFIRMADA (probado en el cliente) |
-| Pestañas, favoritos y deslizador de tamaño | VERIFICADA (tests); pendiente de confirmar en el cliente |
+| Pestañas, favoritos y deslizador de tamaño | CONFIRMADA (probado en el cliente) |
 | Fijar el icono en el selector de macros de Blizzard | EXPERIMENTAL |
 | Asignar un icono a una macro con la API (`C_Macro`) | NO DISPONIBLE (solo tiene `RunMacroText`, `GetMacroName`, `GetSelectedMacroIcon`) |
 

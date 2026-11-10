@@ -1,7 +1,6 @@
 # Pendiente
 
 ## Alta
-- Confirmar en el cliente pestañas, favoritos, deslizador de tamaño y el nuevo deslizador de la cuadrícula.
 - Probar la integración con el selector de macros (`/macro`, Nuevo, Usar en macro) y reclasificarla en el README.
 
 ## Media
