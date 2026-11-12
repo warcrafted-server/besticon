@@ -116,6 +116,31 @@ function BI.Macros.UsePosition(position)
     return state
 end
 
+function BI.Macros.Debug()
+    local button = BI.Macros.button
+    if type(MacroPopupFrame) ~= "table" then
+        print("Best Icon debug: MacroPopupFrame no existe todavia.")
+        return
+    end
+    if not button then
+        print("Best Icon debug: el boton no se ha creado. Instalando...")
+        BI.Macros.Install()
+        button = BI.Macros.button
+        if not button then
+            print("Best Icon debug: Install fallo.")
+            return
+        end
+    end
+    local point, relative, relPoint, x, y = button:GetPoint(1)
+    print(string.format("Best Icon debug: shown=%s visible=%s strata=%s level=%s popupLevel=%s punto=%s %s %s %s",
+        tostring(button:IsShown()), tostring(button:IsVisible()), tostring(button:GetFrameStrata()),
+        tostring(button:GetFrameLevel()), tostring(MacroPopupFrame:GetFrameLevel()),
+        tostring(point), tostring(relPoint), tostring(x), tostring(y)))
+    print(string.format("Best Icon debug: ancho=%s alto=%s parent=%s popupStrata=%s",
+        tostring(button:GetWidth()), tostring(button:GetHeight()),
+        tostring(button:GetParent() == MacroPopupFrame), tostring(MacroPopupFrame:GetFrameStrata())))
+end
+
 function BI.Macros.Install()
     if type(MacroPopupFrame) ~= "table" then
         return nil
@@ -142,8 +167,12 @@ function BI.Macros.Install()
     local setup = pcall(function()
         button:SetSize(110, 20)
         button:SetPoint("BOTTOMLEFT", MacroPopupFrame, "BOTTOMLEFT", 14, 7)
+        -- La barra inferior del selector se dibuja con marcos propios: hay que quedar por encima.
+        if button.SetFrameStrata then
+            button:SetFrameStrata("FULLSCREEN_DIALOG")
+        end
         if MacroPopupFrame.GetFrameLevel and button.SetFrameLevel then
-            button:SetFrameLevel(MacroPopupFrame:GetFrameLevel() + 10)
+            button:SetFrameLevel(MacroPopupFrame:GetFrameLevel() + 50)
         end
         button:SetText(BI.L["macroButton"])
         button:SetScript("OnClick", function()

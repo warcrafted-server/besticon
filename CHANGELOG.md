@@ -10,7 +10,10 @@ Ajustes visuales (parche: solo cambia el aspecto).
 
 ### Cambiado
 - Los iconos de la cuadrícula llevan el marco de los botones del juego y la selección usa el resplandor clásico en lugar de un cuadro plano.
-- El botón «Best Icon» pasa a la barra inferior del selector de iconos de macros, dentro de la ventana, en lugar de quedar suelto debajo.
+- El botón «Best Icon» pasa a la barra inferior del selector de iconos de macros, dentro de la ventana, en lugar de quedar suelto debajo, con capa de dibujo propia para que la barra del selector no lo tape.
+
+### Añadido
+- `/bi debug`: imprime el estado del botón del selector de macros (visible, capa, posición) para diagnosticar.
 
 ## [0.1.0] - 2026-11-10
 

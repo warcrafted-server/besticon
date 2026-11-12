@@ -26,6 +26,10 @@ local function runSlashCommand(message)
         print(BI.L["commandHelp"])
         return
     end
+    if command == "debug" then
+        BI.Macros.Debug()
+        return
+    end
     BI.UI.Toggle()
 end
 
