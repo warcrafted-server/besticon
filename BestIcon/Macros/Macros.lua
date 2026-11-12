@@ -116,6 +116,39 @@ function BI.Macros.UsePosition(position)
     return state
 end
 
+local function findCancel()
+    local popup = MacroPopupFrame
+    local candidates = { popup.CancelButton, popup.BorderBox and popup.BorderBox.CancelButton, _G.MacroPopupCancelButton }
+    for i = 1, 3 do
+        if type(candidates[i]) == "table" then
+            return candidates[i]
+        end
+    end
+    return nil
+end
+
+-- Misma altura y misma fila que Aceptar/Cancelar, a la izquierda de la barra inferior.
+function BI.Macros.Align()
+    local button = BI.Macros.button
+    local popup = MacroPopupFrame
+    if not button or type(popup) ~= "table" then
+        return
+    end
+    local cancel = findCancel()
+    if not cancel or not cancel.GetTop or not popup.GetTop then
+        return
+    end
+    local top, popupTop = cancel:GetTop(), popup:GetTop()
+    local height = cancel:GetHeight()
+    if not top or not popupTop then
+        return
+    end
+    local inset = 14
+    button:ClearAllPoints()
+    button:SetSize(110, height)
+    button:SetPoint("TOPLEFT", popup, "TOPLEFT", inset, top - popupTop)
+end
+
 function BI.Macros.Debug()
     local button = BI.Macros.button
     if type(MacroPopupFrame) ~= "table" then
@@ -136,6 +169,9 @@ function BI.Macros.Debug()
         tostring(button:IsShown()), tostring(button:IsVisible()), tostring(button:GetFrameStrata()),
         tostring(button:GetFrameLevel()), tostring(MacroPopupFrame:GetFrameLevel()),
         tostring(point), tostring(relPoint), tostring(x), tostring(y)))
+    local cancel = findCancel()
+    print(string.format("Best Icon debug: cancelButton=%s alto=%s", tostring(cancel ~= nil),
+        tostring(cancel and cancel:GetHeight())))
     print(string.format("Best Icon debug: ancho=%s alto=%s parent=%s popupStrata=%s",
         tostring(button:GetWidth()), tostring(button:GetHeight()),
         tostring(button:GetParent() == MacroPopupFrame), tostring(MacroPopupFrame:GetFrameStrata())))
@@ -190,6 +226,13 @@ function BI.Macros.Install()
 
     BI.Macros.button = button
     BI.Macros.installedFor = MacroPopupFrame
+    pcall(MacroPopupFrame.HookScript, MacroPopupFrame, "OnShow", function()
+        BI.Macros.Align()
+        if type(C_Timer) == "table" and type(C_Timer.After) == "function" then
+            C_Timer.After(0, BI.Macros.Align)
+        end
+    end)
+    pcall(BI.Macros.Align)
     return button
 end
 

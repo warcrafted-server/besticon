@@ -6,7 +6,7 @@ local Grid = {}
 Grid.__index = Grid
 
 function Grid.ClampIconSize(value)
-    value = tonumber(value) or 36
+    value = tonumber(value) or 40
     value = math.floor((value - 24) / 4 + 0.5) * 4 + 24
     if value < 24 then
         return 24
@@ -40,6 +40,16 @@ local function hasAtlas(name)
         and C_Texture.GetAtlasInfo(name) ~= nil
 end
 
+local function markSelected(button, on)
+    if on then
+        button.selected:Show()
+        button.frame:SetVertexColor(1, 0.82, 0.1)
+    else
+        button.selected:Hide()
+        button.frame:SetVertexColor(1, 1, 1)
+    end
+end
+
 local function initButton(button, buttons)
     if not button.bestIconInitialized then
         button.bestIconInitialized = true
@@ -62,14 +72,14 @@ local function initButton(button, buttons)
             frame:SetAtlas(FRAME_ATLAS)
             frame:SetAllPoints()
         else
-            frame:SetTexture("Interface\Buttons\UI-Quickslot2")
+            frame:SetTexture("Interface\\Buttons\\UI-Quickslot2")
             frame:SetPoint("CENTER")
             button.classicFrame = frame
         end
         button.frame = frame
 
         local selected = button:CreateTexture(nil, "OVERLAY", nil, 1)
-        selected:SetTexture("Interface\Buttons\UI-ActionButton-Border")
+        selected:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
         selected:SetBlendMode("ADD")
         selected:SetPoint("CENTER")
         selected:Hide()
@@ -139,11 +149,7 @@ local function setButton(button, position, onSelect, iconSize)
     else
         button.favorite:Hide()
     end
-    if BI.UI.selected == position then
-        button.selected:Show()
-    else
-        button.selected:Hide()
-    end
+    markSelected(button, BI.UI.selected == position)
 end
 
 local GAP = 4
@@ -297,10 +303,6 @@ end
 function Grid:RefreshSelection(position)
     for i = 1, #self.buttons do
         local button = self.buttons[i]
-        if button.position == position then
-            button.selected:Show()
-        else
-            button.selected:Hide()
-        end
+        markSelected(button, button.position == position)
     end
 end
