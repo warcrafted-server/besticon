@@ -4,6 +4,14 @@ Formato [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/), versionado 
 
 ## [Sin publicar]
 
+## [0.1.1] - 2026-11-12
+
+Ajustes visuales (parche: solo cambia el aspecto).
+
+### Cambiado
+- Los iconos de la cuadrícula llevan el marco de los botones del juego y la selección usa el resplandor clásico en lugar de un cuadro plano.
+- El botón «Best Icon» pasa a la barra inferior del selector de iconos de macros, dentro de la ventana, en lugar de quedar suelto debajo.
+
 ## [0.1.0] - 2026-11-10
 
 Primera versión. Probada en el cliente.

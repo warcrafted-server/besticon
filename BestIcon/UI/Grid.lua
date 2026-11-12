@@ -33,25 +33,45 @@ local function notify(key)
     end
 end
 
+local FRAME_ATLAS = "UI-HUD-ActionBar-IconFrame"
+
+local function hasAtlas(name)
+    return type(C_Texture) == "table" and type(C_Texture.GetAtlasInfo) == "function"
+        and C_Texture.GetAtlasInfo(name) ~= nil
+end
+
 local function initButton(button, buttons)
     if not button.bestIconInitialized then
         button.bestIconInitialized = true
 
         local slot = button:CreateTexture(nil, "BACKGROUND")
         slot:SetAllPoints()
-        slot:SetTexture("Interface\\Buttons\\UI-Quickslot2")
+        slot:SetColorTexture(0, 0, 0, 0.9)
         button.slot = slot
 
         local icon = button:CreateTexture(nil, "ARTWORK")
-        icon:SetPoint("TOPLEFT", 2, -2)
-        icon:SetPoint("BOTTOMRIGHT", -2, 2)
+        icon:SetPoint("TOPLEFT", 3, -3)
+        icon:SetPoint("BOTTOMRIGHT", -3, 3)
         icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
         button.icon = icon
 
-        local selected = button:CreateTexture(nil, "OVERLAY")
-        selected:SetAllPoints()
-        selected:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
+        -- Marco del icono como en los botones del juego: atlas moderno si existe;
+        -- si no, la ranura clásica con su geometría original (66 sobre 36).
+        local frame = button:CreateTexture(nil, "OVERLAY")
+        if hasAtlas(FRAME_ATLAS) then
+            frame:SetAtlas(FRAME_ATLAS)
+            frame:SetAllPoints()
+        else
+            frame:SetTexture("Interface\Buttons\UI-Quickslot2")
+            frame:SetPoint("CENTER")
+            button.classicFrame = frame
+        end
+        button.frame = frame
+
+        local selected = button:CreateTexture(nil, "OVERLAY", nil, 1)
+        selected:SetTexture("Interface\Buttons\UI-ActionButton-Border")
         selected:SetBlendMode("ADD")
+        selected:SetPoint("CENTER")
         selected:Hide()
         button.selected = selected
 
@@ -108,6 +128,10 @@ local function setButton(button, position, onSelect, iconSize)
     button.position = position
     button.onSelect = onSelect
     button:SetSize(iconSize, iconSize)
+    if button.classicFrame then
+        button.classicFrame:SetSize(iconSize * 66 / 36, iconSize * 66 / 36)
+    end
+    button.selected:SetSize(iconSize * 62 / 37, iconSize * 62 / 37)
     local id = BI.DB.Get(position)
     button.icon:SetTexture(id)
     if id and BI.Favorites and BI.Favorites.IsFavorite(id) then

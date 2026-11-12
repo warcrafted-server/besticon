@@ -140,8 +140,11 @@ function BI.Macros.Install()
     end
 
     local setup = pcall(function()
-        button:SetSize(120, 22)
-        button:SetPoint("TOPLEFT", MacroPopupFrame, "BOTTOMLEFT", 0, -2)
+        button:SetSize(110, 20)
+        button:SetPoint("BOTTOMLEFT", MacroPopupFrame, "BOTTOMLEFT", 14, 7)
+        if MacroPopupFrame.GetFrameLevel and button.SetFrameLevel then
+            button:SetFrameLevel(MacroPopupFrame:GetFrameLevel() + 10)
+        end
         button:SetText(BI.L["macroButton"])
         button:SetScript("OnClick", function()
             if BI.UI and BI.UI.Toggle then
