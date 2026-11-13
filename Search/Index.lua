@@ -213,6 +213,43 @@ local function buildAliases()
     end
 end
 
+-- Concept words (Data/Concepts.lua) behave like aliases, but each one reaches
+-- the icons of several tokens at once and is merged with any alias of the same word.
+local function buildConcepts()
+    for _, concept in ipairs(BI.Concepts or {}) do
+        local set = {}
+        for i = 1, #concept.icons do
+            local list = postings[BI.Stem(BI.Normalize(concept.icons[i]))]
+            if list then
+                for p = 1, #list do
+                    set[list[p]] = true
+                end
+            end
+        end
+        for w = 1, #concept.words do
+            local key = BI.Stem(BI.Normalize(concept.words[w]))
+            local merged = {}
+            local known = aliasPostings[key]
+            if known then
+                for p = 1, #known do
+                    merged[known[p]] = true
+                end
+            else
+                aliasKeys[#aliasKeys + 1] = key
+            end
+            for position in pairs(set) do
+                merged[position] = true
+            end
+            local list = {}
+            for position in pairs(merged) do
+                list[#list + 1] = position
+            end
+            table.sort(list, byID)
+            aliasPostings[key] = list
+        end
+    end
+end
+
 local function buildCategories()
     categorySets = {}
     categoryLists = {}
@@ -273,6 +310,7 @@ end
 
 local function finish()
     buildAliases()
+    buildConcepts()
     buildCategories()
     buildAllPositions()
     ready = true

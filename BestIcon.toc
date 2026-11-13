@@ -29,6 +29,7 @@ Data/Aliases/esES_00_manual.lua
 Data/Aliases/esES_01.lua
 Data/Aliases/esES_02.lua
 Data/Aliases/esES_03.lua
+Data/Concepts.lua
 Data/Categories.lua
 Search/Normalize.lua
 Search/Index.lua
