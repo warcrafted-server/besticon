@@ -22,7 +22,7 @@
     Origen/URL:
     https://github.com/wowdev/wow-listfile
     Archivos:
-    BestIcon/Data/Icons_01.lua a Icons_10.lua (solo el nombre de cada icono; los FileDataID salen del cliente)
+    Data/Icons_01.lua a Icons_10.lua (solo el nombre de cada icono; los FileDataID salen del cliente)
 
 Los iconos son propiedad de Blizzard Entertainment y no se incluyen en este repositorio: el addon solo
 los muestra por su FileDataID desde el cliente del juego.

@@ -1,4 +1,4 @@
-"""Genera docs/curseforge/logo.png (400x400): rejilla de iconos con lupa, dibujada por código."""
+"""Genera docs/img/logo.png (400x400): rejilla de iconos con lupa, dibujada por código."""
 
 import random
 from pathlib import Path
@@ -6,7 +6,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 S = 400
-OUT = Path(__file__).resolve().parent.parent / "docs" / "curseforge" / "logo.png"
+OUT = Path(__file__).resolve().parent.parent / "docs" / "img" / "logo.png"
 random.seed(7)
 PALETTE = [(200, 70, 50), (60, 130, 200), (90, 170, 90), (220, 170, 50), (150, 90, 190), (70, 170, 170)]
 

@@ -24,7 +24,7 @@ def tokens(name):
 def main(out_path):
     freq = Counter()
     total = 0
-    for f in sorted((ROOT / "BestIcon" / "Data").glob("Icons_*.lua")):
+    for f in sorted((ROOT / "Data").glob("Icons_*.lua")):
         for name in re.findall(r'\{\d+,"([^"]+)"\}', f.read_text(encoding="utf-8")):
             total += 1
             freq.update(set(tokens(name)))

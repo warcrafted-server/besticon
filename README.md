@@ -69,7 +69,7 @@ Las copias y los forks deben conservar esta atribución y enlazar a https://gith
 
 | Componente | Autor | Licencia | Enlace |
 | --- | --- | --- | --- |
-| Nombres de iconos (`BestIcon/Data/Icons_*.lua`), de la lista de archivos comunitaria | Comunidad wowdev | No declarada por el origen | https://github.com/wowdev/wow-listfile |
+| Nombres de iconos (`Data/Icons_*.lua`), de la lista de archivos comunitaria | Comunidad wowdev | No declarada por el origen | https://github.com/wowdev/wow-listfile |
 
 Los iconos son de Blizzard Entertainment y no se distribuyen: se leen del cliente del juego.
 

@@ -11,7 +11,7 @@ from pathlib import Path
 from lupa.lua51 import LuaRuntime
 
 ROOT = Path(__file__).resolve().parent.parent
-ADDON = ROOT / "BestIcon"
+ADDON = ROOT
 
 lua = LuaRuntime(unpack_returned_tuples=True)
 

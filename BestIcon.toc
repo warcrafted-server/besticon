@@ -5,6 +5,8 @@
 ## Version: 0.1.1
 ## Author: WarCrafted
 ## X-License: WNCL-TP-1.0
+## X-Website: https://github.com/warcrafted-server/besticon
+## X-Curse-Project-ID: 1795960
 ## SavedVariables: BestIconDB
 
 Core/Init.lua

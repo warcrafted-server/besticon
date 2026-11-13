@@ -1,6 +1,6 @@
 # Arquitectura de Best Icon
 
-Namespace compartido `local ADDON, BI = ...` en todos los archivos. Orden de carga en `BestIcon/BestIcon.toc`.
+Namespace compartido `local ADDON, BI = ...` en todos los archivos. Orden de carga en `BestIcon.toc`.
 
 | Carpeta | Contenido |
 |---|---|

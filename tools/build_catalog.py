@@ -1,4 +1,4 @@
-"""Genera BestIcon/Data/Icons_NN.lua a partir del volcado /bidump y el listfile comunitario.
+"""Genera Data/Icons_NN.lua a partir del volcado /bidump y el listfile comunitario.
 
 Uso: python tools/build_catalog.py <BestIconDump.lua> <community-listfile-withcapitals.csv>
 """
@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 CHUNK = 3000
-OUT = Path(__file__).resolve().parent.parent / "BestIcon" / "Data"
+OUT = Path(__file__).resolve().parent.parent / "Data"
 
 
 def read_ids(dump_path):
