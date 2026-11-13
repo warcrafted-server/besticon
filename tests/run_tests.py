@@ -132,6 +132,18 @@ def main():
         names = names_of(to_list(BI.Search.Run(query)))
         check("INV_Camelot_Camping_CampBenefits" in names, "%r incluye CampBenefits" % query)
 
+    print("(c2) conceptos")
+    concept_tokens = {
+        "gracias": "gift", "thanks": "gift", "ayuda": "bandage", "help": "bandage",
+        "fiesta": "cake", "party": "cake", "brindis": "beer", "victoria": "trophy",
+        "muerte": "skull", "bienvenida": "campfire",
+    }
+    for query, token in concept_tokens.items():
+        names = [n.lower() for n in names_of(to_list(BI.Search.Run(query)))]
+        check(len(names) > 0, "concepto %r da resultados" % query)
+        check(any(token in n for n in names), "concepto %r incluye iconos con %r" % (query, token))
+    check(set(to_list(BI.Search.Run("gracias"))) == set(to_list(BI.Search.Run("thanks"))), "gracias == thanks")
+
     print("(d) pares EN/ES")
     pairs = [
         ("campfire", "hoguera"), ("fish", "pescado"), ("food", "comida"),
