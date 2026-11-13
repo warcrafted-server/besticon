@@ -18,3 +18,13 @@ agentrelay.config.json
 .DS_Store
 Thumbs.db
 dist/
+
+# Agent files (never published)
+CLAUDE.md
+AGENTS.md
+.claude/
+.agents/
+.agentrelay/
+
+# Local development copy of the .toc (AddOns\BestIconDev junction)
+BestIconDev.toc

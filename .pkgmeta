@@ -1,0 +1,21 @@
+package-as: BestIcon
+
+manual-changelog:
+  filename: docs/RELEASE_NOTES.md
+  markup-type: markdown
+
+ignore:
+  - docs
+  - tests
+  - tools
+  - dist
+  - .agents
+  - .claude
+  - .agentrelay
+  - .github
+  - CLAUDE.md
+  - AGENTS.md
+  - TODO.md
+  - VERSION
+  - BestIconDev.toc
+  - .gitignore
