@@ -1,5 +1,3 @@
-<!-- Texto para pegar en el editor Markdown de CurseForge. CurseForge exige el inglés primero. -->
-
 # Best Icon
 
 **Find the right icon in seconds.** Best Icon is a visual icon browser for **World of Warcraft: Forever**. Type what you are looking for, in **English or Spanish**, and see every matching icon at once, with its ID and texture path ready to copy.
@@ -10,7 +8,7 @@ Perfect for macros and for anyone who has ever scrolled the default macro icon l
 
 - **Instant bilingual search.** Type "campfire", "hoguera" or "fogata" and get the same icons. English and Spanish are searched together; accents, capitals and plurals do not matter. You can also search by numeric ID or by texture path.
 - **27,714 icons from your own client**, each with a readable name. Nothing is downloaded; the icons are read from the game.
-- **Visual grid** with adjustable icon size, mouse wheel scrolling and a resizable, movable window that remembers its position.
+- **Visual grid** with the game's own icon frame, adjustable icon size, mouse wheel scrolling and a resizable, movable window that remembers its position.
 - **Info panel** with a large preview, name, ID, path, categories and keywords. ID and path are selectable, so you can copy them with Ctrl+C.
 - **Categories:** camps, food and drink, weapons, armor, magic, fire, water, nature, creatures, professions, mounts, pets and more.
 - **Favorites and history:** right-click an icon to favorite it; the last 40 icons you picked are kept.
@@ -20,10 +18,10 @@ Perfect for macros and for anyone who has ever scrolled the default macro icon l
 
 ## Usage
 
-1. Type `/bi` or `/besticon` to open or close the window.
+1. Type **/bi** or **/besticon** to open or close the window.
 2. Type a word, an ID or a path. Results appear as you type.
 3. Click an icon to see its details. Right-click to favorite it.
-4. Open `/macro`, press *New* or *Change Name/Icon*, then press *Use in macro* (or double-click an icon).
+4. Open **/macro**, press *New* or *Change Name/Icon*, then press *Use in macro* (or double-click an icon).
 
 ## Notes
 
@@ -37,7 +35,7 @@ Bugs and ideas: https://github.com/warcrafted-server/besticon/issues
 
 ## License
 
-The license selector on this page only offers standard licenses, so it shows the closest one. The terms that apply are those of [WNCL-TP-1.0](https://github.com/warcrafted-server/besticon/blob/master/LICENSE): free to use, study, modify and share for non-commercial purposes. Selling or any commercial use requires written permission. Third-party material (icon names) keeps its own terms; see CREDITS.md.
+The license selector on this page only offers standard licenses, so it shows the closest one. The terms that apply are those of [WNCL-TP-1.0](https://github.com/warcrafted-server/besticon/blob/main/LICENSE): free to use, study, modify and share for non-commercial purposes. Selling or any commercial use requires written permission. Third-party material (icon names) keeps its own terms; see [CREDITS](https://github.com/warcrafted-server/besticon/blob/main/CREDITS.md).
 
 ---
 
@@ -49,7 +47,7 @@ The license selector on this page only offers standard licenses, so it shows the
 
 - **Búsqueda bilingüe instantánea:** «hoguera», «fogata» o «campfire» dan los mismos iconos. Ignora tildes, mayúsculas y plurales, y acepta ID numérico o ruta.
 - **27 714 iconos de tu propio cliente**, cada uno con nombre legible.
-- **Cuadrícula visual** con tamaño ajustable, rueda del ratón y ventana movible y redimensionable.
+- **Cuadrícula visual** con el marco de iconos del propio juego, tamaño ajustable, rueda del ratón y ventana movible y redimensionable.
 - **Panel de información** con vista previa, nombre, ID, ruta, categorías y palabras clave, copiables con Ctrl+C.
 - **Categorías, favoritos** (clic derecho) **e historial** de los últimos 40.
 - **Ayuda para macros:** con el selector de iconos de macros abierto, pulsa *Usar en macro* o haz doble clic en un icono; tú confirmas en la ventana de macros.
@@ -57,6 +55,6 @@ The license selector on this page only offers standard licenses, so it shows the
 
 ## Uso
 
-`/bi` o `/besticon` abre y cierra la ventana. Escribe una palabra, un ID o una ruta; clic en un icono para ver sus datos y clic derecho para marcarlo como favorito.
+**/bi** o **/besticon** abre y cierra la ventana. Escribe una palabra, un ID o una ruta; clic en un icono para ver sus datos y clic derecho para marcarlo como favorito.
 
 Hecho para WoW Forever (Interface 16001). La API del juego no permite asignar iconos a macros, así que Best Icon selecciona el icono en el selector estándar y tú confirmas.
