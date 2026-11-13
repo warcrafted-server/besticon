@@ -1,17 +1,11 @@
-## 0.1.1 — Visual fixes / Ajustes visuales
+## 0.2.0 — Search by intent / Búsqueda por intención
 
 **English**
 
-- Icons in the grid now use the game's own icon frame, and the selected icon is highlighted with a gold frame and glow.
-- The "Best Icon" button now sits in the bottom bar of the macro icon picker, in the same row as Accept/Cancel.
-- Default icon size is now 40.
-- Fixed: the selection highlight was invisible because of a wrong texture path.
-- New: **/bi debug** prints the state of the macro picker button, for troubleshooting.
+- New: search by intent. Words like "thanks", "hello", "welcome", "help", "party", "love", "cheers", "victory", "danger", "death", "peace", "music" or "letter" now lead to the icons that represent them, even when no icon is named after the word. It works in English and Spanish ("gracias", "saludo", "ayuda"...).
+- Example: **thanks** or **gracias** shows gifts, bouquets, flowers and roses.
 
 **Español**
 
-- Los iconos de la cuadrícula usan el marco de iconos del propio juego, y el icono seleccionado se marca con marco y resplandor dorados.
-- El botón «Best Icon» está ahora en la barra inferior del selector de iconos de macros, en la misma fila que Aceptar/Cancelar.
-- El tamaño de icono por defecto es 40.
-- Corregido: la selección no se veía por una ruta de textura mal escrita.
-- Nuevo: **/bi debug** muestra el estado del botón del selector de macros, para diagnosticar.
+- Nuevo: búsqueda por intención. Palabras como «gracias», «saludo», «bienvenida», «ayuda», «fiesta», «amor», «brindis», «victoria», «peligro», «muerte», «paz», «música» o «carta» llevan ahora a los iconos que las representan, aunque ningún icono se llame así. Funciona en español e inglés («thanks», «hello», «help»...).
+- Ejemplo: **gracias** o **thanks** muestran regalos, ramos, flores y rosas.

@@ -2,7 +2,7 @@
 ## Title: Best Icon
 ## Notes: Visual icon browser.
 ## Notes-esES: Buscador visual de iconos del cliente.
-## Version: 0.1.1
+## Version: 0.2.0
 ## Author: WarCrafted
 ## X-License: WNCL-TP-1.0
 ## X-Website: https://github.com/warcrafted-server/besticon

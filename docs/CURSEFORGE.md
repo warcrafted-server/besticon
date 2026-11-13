@@ -7,6 +7,7 @@ Perfect for macros and for anyone who has ever scrolled the default macro icon l
 ## Features
 
 - **Instant bilingual search.** Type "campfire", "hoguera" or "fogata" and get the same icons. English and Spanish are searched together; accents, capitals and plurals do not matter. You can also search by numeric ID or by texture path.
+- **Search by intent.** Type "thanks", "hello", "help" or "party" and get the icons that fit the idea, even when no icon is named after the word. Also works in Spanish: "gracias", "saludo", "ayuda", "fiesta".
 - **27,714 icons from your own client**, each with a readable name. Nothing is downloaded; the icons are read from the game.
 - **Visual grid** with the game's own icon frame, adjustable icon size, mouse wheel scrolling and a resizable, movable window that remembers its position.
 - **Info panel** with a large preview, name, ID, path, categories and keywords. ID and path are selectable, so you can copy them with Ctrl+C.
@@ -46,6 +47,7 @@ The license selector on this page only offers standard licenses, so it shows the
 ## Características
 
 - **Búsqueda bilingüe instantánea:** «hoguera», «fogata» o «campfire» dan los mismos iconos. Ignora tildes, mayúsculas y plurales, y acepta ID numérico o ruta.
+- **Búsqueda por intención:** escribe «gracias», «saludo», «ayuda» o «fiesta» y salen los iconos que encajan con la idea, aunque ningún icono se llame así. También en inglés: «thanks», «hello», «help».
 - **27 714 iconos de tu propio cliente**, cada uno con nombre legible.
 - **Cuadrícula visual** con el marco de iconos del propio juego, tamaño ajustable, rueda del ratón y ventana movible y redimensionable.
 - **Panel de información** con vista previa, nombre, ID, ruta, categorías y palabras clave, copiables con Ctrl+C.

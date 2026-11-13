@@ -20,7 +20,7 @@ Install **Best Icon** from the CurseForge app (select your Forever installation)
 
 Commands: `/besticon` or `/bi` open and close the window; `/besticon help` shows the help.
 
-- **Search:** type in the search box, no Enter needed. English and Spanish are searched together ("campfire", "hoguera", "fogata"…), ignoring capitals and accents, and plurals work. A numeric ID or a path also works.
+- **Search:** type in the search box, no Enter needed. English and Spanish are searched together ("campfire", "hoguera", "fogata"…), ignoring capitals and accents, and plurals work. A numeric ID or a path also works. Concept words work too: "thanks", "hello", "help" or "party" lead to the icons that fit the idea.
 - **Category:** the button next to the search filters by Camps, Food and drink, Weapons, etc.
 - **Select:** click an icon to see its preview, name, ID, path, categories and keywords. ID and path can be copied with Ctrl+C.
 - **Favorites:** right-click an icon (or use the panel button). **History:** the last 40 selected icons. Both are in the tabs at the bottom.
@@ -86,7 +86,7 @@ Instala **Best Icon** desde la app de CurseForge (selecciona tu instalación de 
 
 Comandos: `/besticon` o `/bi` abren y cierran la ventana; `/besticon help` muestra la ayuda.
 
-- **Buscar:** escribe en la caja de búsqueda, sin pulsar Enter. Funciona en español e inglés a la vez («hoguera», «campfire», «fogata»…), ignora mayúsculas y tildes y acepta plurales. También acepta un ID numérico o una ruta.
+- **Buscar:** escribe en la caja de búsqueda, sin pulsar Enter. Funciona en español e inglés a la vez («hoguera», «campfire», «fogata»…), ignora mayúsculas y tildes y acepta plurales. También acepta un ID numérico o una ruta. Y palabras de concepto: «gracias», «saludo», «ayuda» o «fiesta» llevan a los iconos que encajan con la idea.
 - **Categoría:** el botón junto a la búsqueda filtra por Campamentos, Comida y bebida, Armas, etc.
 - **Seleccionar:** clic en un icono para ver su vista previa, nombre, ID, ruta, categorías y palabras clave. El ID y la ruta se pueden copiar con Ctrl+C.
 - **Favoritos:** clic derecho en un icono (o el botón del panel). **Historial:** los últimos 40 seleccionados. Se consultan en las pestañas inferiores.

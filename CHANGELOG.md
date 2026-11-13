@@ -4,6 +4,13 @@ Formato [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/), versionado 
 
 ## [Sin publicar]
 
+## [0.2.0] - 2026-11-13
+
+Novedad: búsqueda por intención.
+
+### Añadido
+- Búsqueda por intención: palabras como «gracias», «saludo», «bienvenida», «ayuda», «fiesta», «amor», «brindis», «victoria», «peligro», «muerte», «paz», «música» o «carta» (y sus equivalentes en inglés) llevan a los iconos que las representan, aunque ningún nombre de icono las contenga. Los conceptos están en `Data/Concepts.lua` y se pueden ampliar sin tocar la lógica.
+
 ## [0.1.1] - 2026-11-12
 
 Ajustes visuales (parche: solo cambia el aspecto).
