@@ -237,8 +237,7 @@ function BI.Macros.Install()
 end
 
 -- Botón de acceso en la ventana principal de macros (/macro), sin pasar por el selector de iconos.
--- Se ancla a la esquina superior derecha, a la altura del título; el desplazamiento se ajusta
--- con las constantes de abajo si el marco del juego lo pide.
+-- Se ancla en la fila inferior, a la izquierda de Nuevo; sin ese botón, arriba a la derecha.
 local MAIN_OFFSET_X, MAIN_OFFSET_Y = -36, -30
 
 function BI.Macros.InstallMain()
@@ -261,8 +260,15 @@ function BI.Macros.InstallMain()
     end
 
     local setup = pcall(function()
-        button:SetSize(110, 22)
-        button:SetPoint("TOPRIGHT", MacroFrame, "TOPRIGHT", MAIN_OFFSET_X, MAIN_OFFSET_Y)
+        -- Fila inferior, entre Eliminar y Nuevo, con su misma altura.
+        local anchor = _G.MacroNewButton
+        if type(anchor) == "table" and anchor.GetHeight then
+            button:SetSize(92, anchor:GetHeight())
+            button:SetPoint("RIGHT", anchor, "LEFT", -6, 0)
+        else
+            button:SetSize(110, 22)
+            button:SetPoint("TOPRIGHT", MacroFrame, "TOPRIGHT", MAIN_OFFSET_X, MAIN_OFFSET_Y)
+        end
         if button.SetFrameStrata and MacroFrame.GetFrameStrata then
             button:SetFrameStrata(MacroFrame:GetFrameStrata())
         end
