@@ -13,7 +13,7 @@ Perfect for macros and for anyone who has ever scrolled the default macro icon l
 - **Info panel** with a large preview, name, ID, path, categories and keywords. ID and path are selectable, so you can copy them with Ctrl+C.
 - **Categories:** camps, food and drink, weapons, armor, magic, fire, water, nature, creatures, professions, mounts, pets and more.
 - **Favorites and history:** right-click an icon to favorite it; the last 40 icons you picked are kept.
-- **Macro helper:** with the macro icon picker open, press *Use in macro* or double-click an icon and Best Icon selects it for you. You still confirm in the macro window.
+- **Macro helper:** a *Best Icon* button in the macro window opens the finder in one click. With the macro icon picker open, press *Use in macro* or double-click an icon and Best Icon selects it for you. You still confirm in the macro window.
 - **Native look.** Built with the game's own frame templates so it sits next to the macro window as if it were part of the UI.
 - **Translated interface:** English and Spanish, with automatic fallback.
 
@@ -22,7 +22,7 @@ Perfect for macros and for anyone who has ever scrolled the default macro icon l
 1. Type **/bi** or **/besticon** to open or close the window.
 2. Type a word, an ID or a path. Results appear as you type.
 3. Click an icon to see its details. Right-click to favorite it.
-4. Open **/macro**, press *New* or *Change Name/Icon*, then press *Use in macro* (or double-click an icon).
+4. Open **/macro** and press *Best Icon* (bottom row) to open the finder from the macro window. Or press *New* or *Change Name/Icon*, then press *Use in macro* (or double-click an icon).
 
 ## Notes
 
@@ -52,7 +52,7 @@ The license selector on this page only offers standard licenses, so it shows the
 - **Cuadrícula visual** con el marco de iconos del propio juego, tamaño ajustable, rueda del ratón y ventana movible y redimensionable.
 - **Panel de información** con vista previa, nombre, ID, ruta, categorías y palabras clave, copiables con Ctrl+C.
 - **Categorías, favoritos** (clic derecho) **e historial** de los últimos 40.
-- **Ayuda para macros:** con el selector de iconos de macros abierto, pulsa *Usar en macro* o haz doble clic en un icono; tú confirmas en la ventana de macros.
+- **Ayuda para macros:** un botón *Best Icon* en la ventana de macros abre el buscador con un clic. Con el selector de iconos de macros abierto, pulsa *Usar en macro* o haz doble clic en un icono; tú confirmas en la ventana de macros.
 - **Aspecto nativo**, con las plantillas del propio juego, e interfaz en español e inglés.
 
 ## Uso

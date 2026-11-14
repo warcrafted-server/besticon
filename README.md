@@ -25,7 +25,7 @@ Commands: `/besticon` or `/bi` open and close the window; `/besticon help` shows
 - **Select:** click an icon to see its preview, name, ID, path, categories and keywords. ID and path can be copied with Ctrl+C.
 - **Favorites:** right-click an icon (or use the panel button). **History:** the last 40 selected icons. Both are in the tabs at the bottom.
 - **Icon size:** slider at the bottom right. The window can be moved and resized, and remembers its position and size.
-- **Macros:** open `/macro`, press *New* or *Change Name/Icon* and, with the picker open, use *Use in macro* or double-click an icon. Then confirm in the macro window. If it cannot be applied automatically, the addon tells you what to do and you can copy the ID or path.
+- **Macros:** open `/macro` and press *Best Icon* (bottom row, next to *New*) to open the finder, or press *New* or *Change Name/Icon* and, with the picker open, use *Use in macro* or double-click an icon. Then confirm in the macro window. If it cannot be applied automatically, the addon tells you what to do and you can copy the ID or path.
 
 ### Feature status
 
@@ -91,7 +91,7 @@ Comandos: `/besticon` o `/bi` abren y cierran la ventana; `/besticon help` muest
 - **Seleccionar:** clic en un icono para ver su vista previa, nombre, ID, ruta, categorías y palabras clave. El ID y la ruta se pueden copiar con Ctrl+C.
 - **Favoritos:** clic derecho en un icono (o el botón del panel). **Historial:** los últimos 40 seleccionados. Se consultan en las pestañas inferiores.
 - **Tamaño de icono:** deslizador abajo a la derecha. La ventana se mueve y se redimensiona, y recuerda posición y tamaño.
-- **Macros:** abre `/macro`, pulsa *Nuevo* o *Cambiar nombre/icono* y, con el selector abierto, usa *Usar en macro* o doble clic sobre un icono. Luego confirma tú en la ventana de macros. Si no se puede aplicar automáticamente, el addon explica qué hacer y puedes copiar el ID o la ruta.
+- **Macros:** abre `/macro` y pulsa *Best Icon* (fila inferior, junto a *Nuevo*) para abrir el buscador, o pulsa *Nuevo* o *Cambiar nombre/icono* y, con el selector abierto, usa *Usar en macro* o doble clic sobre un icono. Luego confirma tú en la ventana de macros. Si no se puede aplicar automáticamente, el addon explica qué hacer y puedes copiar el ID o la ruta.
 
 ### Estado de las funciones
 

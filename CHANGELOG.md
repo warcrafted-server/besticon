@@ -4,6 +4,14 @@ Formato [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/), versionado 
 
 ## [Sin publicar]
 
+## [0.3.0] - 2026-11-14
+
+Novedad: acceso desde la ventana de macros.
+
+### Añadido
+- Botón «Best Icon» en la ventana principal de macros (`/macro`), en la fila inferior entre Eliminar y Nuevo, con la misma altura y separación que los botones del juego. Abre y cierra el buscador sin pasar por el selector de iconos.
+- `/bi debug` también informa del estado de ese botón.
+
 ## [0.2.0] - 2026-11-13
 
 Novedad: búsqueda por intención.
