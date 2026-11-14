@@ -236,23 +236,95 @@ function BI.Macros.Install()
     return button
 end
 
+-- Botón de acceso en la ventana principal de macros (/macro), sin pasar por el selector de iconos.
+-- Se ancla a la esquina superior derecha, a la altura del título; el desplazamiento se ajusta
+-- con las constantes de abajo si el marco del juego lo pide.
+local MAIN_OFFSET_X, MAIN_OFFSET_Y = -36, -30
+
+function BI.Macros.InstallMain()
+    if type(MacroFrame) ~= "table" then
+        return nil
+    end
+    if BI.Macros.mainButton and BI.Macros.mainInstalledFor == MacroFrame then
+        return BI.Macros.mainButton
+    end
+    if inCombat() then
+        return nil
+    end
+
+    local ok, button = pcall(CreateFrame, "Button", nil, MacroFrame, "UIPanelButtonTemplate")
+    if not ok or not button then
+        if BI.UI and BI.UI.NotifyOnce then
+            BI.UI.NotifyOnce("UIPanelButtonTemplate", "UIPanelButtonTemplate")
+        end
+        return nil
+    end
+
+    local setup = pcall(function()
+        button:SetSize(110, 22)
+        button:SetPoint("TOPRIGHT", MacroFrame, "TOPRIGHT", MAIN_OFFSET_X, MAIN_OFFSET_Y)
+        if button.SetFrameStrata and MacroFrame.GetFrameStrata then
+            button:SetFrameStrata(MacroFrame:GetFrameStrata())
+        end
+        if MacroFrame.GetFrameLevel and button.SetFrameLevel then
+            button:SetFrameLevel(MacroFrame:GetFrameLevel() + 20)
+        end
+        button:SetText(BI.L["macroButton"])
+        button:SetScript("OnClick", function()
+            if BI.UI and BI.UI.Toggle then
+                BI.UI.Toggle()
+            end
+        end)
+    end)
+    if not setup then
+        return nil
+    end
+
+    BI.Macros.mainButton = button
+    BI.Macros.mainInstalledFor = MacroFrame
+    return button
+end
+
+function BI.Macros.DebugMain()
+    if type(MacroFrame) ~= "table" then
+        print("Best Icon debug: MacroFrame no existe todavia (abre /macro).")
+        return
+    end
+    local button = BI.Macros.mainButton or BI.Macros.InstallMain()
+    if not button then
+        print("Best Icon debug: el boton de la ventana de macros no se pudo crear.")
+        return
+    end
+    local point, _, relPoint, x, y = button:GetPoint(1)
+    print(string.format("Best Icon debug: macroFrame %sx%s strata=%s level=%s | boton shown=%s visible=%s punto=%s %s %s %s nivel=%s",
+        tostring(MacroFrame:GetWidth()), tostring(MacroFrame:GetHeight()),
+        tostring(MacroFrame:GetFrameStrata()), tostring(MacroFrame:GetFrameLevel()),
+        tostring(button:IsShown()), tostring(button:IsVisible()),
+        tostring(point), tostring(relPoint), tostring(x), tostring(y), tostring(button:GetFrameLevel())))
+end
+
+local function installAll()
+    BI.Macros.Install()
+    BI.Macros.InstallMain()
+end
+
 local ok, eventFrame = pcall(CreateFrame, "Frame")
 if ok and eventFrame then
     eventFrame:RegisterEvent("ADDON_LOADED")
     eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
     eventFrame:SetScript("OnEvent", function(_, event, name)
         if event == "ADDON_LOADED" and name == "Blizzard_MacroUI" then
-            BI.Macros.Install()
+            installAll()
         elseif event == "PLAYER_REGEN_ENABLED" then
-            BI.Macros.Install()
+            installAll()
         end
     end)
 end
 
 if isAddonLoaded("Blizzard_MacroUI") then
     if type(C_Timer) == "table" and type(C_Timer.After) == "function" then
-        pcall(C_Timer.After, 0, BI.Macros.Install)
+        pcall(C_Timer.After, 0, installAll)
     else
-        BI.Macros.Install()
+        installAll()
     end
 end
