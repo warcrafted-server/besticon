@@ -263,8 +263,23 @@ function BI.Macros.InstallMain()
         -- Fila inferior, entre Eliminar y Nuevo, con su misma altura.
         local anchor = _G.MacroNewButton
         if type(anchor) == "table" and anchor.GetHeight then
-            button:SetSize(92, anchor:GetHeight())
-            button:SetPoint("RIGHT", anchor, "LEFT", -6, 0)
+            -- Mismo hueco que hay entre Nuevo y Salir; ocupa todo el espacio entre Eliminar y Nuevo.
+            local gap = 2
+            local exit = _G.MacroExitButton
+            if type(exit) == "table" and exit.GetLeft and anchor.GetRight then
+                local l, r = exit:GetLeft(), anchor:GetRight()
+                if l and r then
+                    gap = l - r
+                end
+            end
+            button:SetHeight(anchor:GetHeight())
+            button:SetPoint("RIGHT", anchor, "LEFT", -gap, 0)
+            local delete = _G.MacroDeleteButton
+            if type(delete) == "table" then
+                button:SetPoint("LEFT", delete, "RIGHT", gap, 0)
+            else
+                button:SetWidth(90)
+            end
         else
             button:SetSize(110, 22)
             button:SetPoint("TOPRIGHT", MacroFrame, "TOPRIGHT", MAIN_OFFSET_X, MAIN_OFFSET_Y)
