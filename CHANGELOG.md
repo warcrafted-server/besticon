@@ -4,6 +4,16 @@ Formato [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/), versionado 
 
 ## [Sin publicar]
 
+## [0.4.0] - 2026-11-16
+
+Novedad: copiar el ID y la ruta con un botón.
+
+### Añadido
+- Botones «Copiar» junto al ID y la ruta en el panel de información: seleccionan el texto para copiarlo con Ctrl+C (el juego no tiene portapapeles).
+
+### Cambiado
+- Los cuadros de ID y ruta son de solo lectura: si se escribe en ellos, se restaura el valor.
+
 ## [0.3.0] - 2026-11-14
 
 Novedad: acceso desde la ventana de macros.

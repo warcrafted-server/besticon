@@ -1,3 +1,15 @@
+## 0.4.0 — Copy buttons / Botones de copiar
+
+**English**
+
+- New: **Copy** buttons next to the ID and the path in the info panel. Press one and the text is selected, so you only need Ctrl+C. Handy for pasting icon IDs into other addons.
+- The ID and path boxes are now read-only, so an accidental keystroke cannot change them.
+
+**Español**
+
+- Nuevo: botones **Copiar** junto al ID y la ruta en el panel de información. Al pulsarlos el texto queda seleccionado y solo falta Ctrl+C. Útil para pegar IDs de iconos en otros addons.
+- Los cuadros de ID y ruta son ahora de solo lectura, así que una tecla pulsada por error no los cambia.
+
 ## 0.3.0 — Button in the macro window / Botón en la ventana de macros
 
 **English**
