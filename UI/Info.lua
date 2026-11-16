@@ -41,6 +41,43 @@ local function keywordsFor(name)
     return out
 end
 
+-- El juego no tiene portapapeles: el botón deja el texto seleccionado para copiarlo con Ctrl+C.
+local function addCopyButton(parent, box)
+    local ok, button = pcall(CreateFrame, "Button", nil, parent, "UIPanelButtonTemplate")
+    if not ok or not button then
+        return nil
+    end
+    button:SetSize(64, 22)
+    button:SetText(BI.L["copyButton"])
+    button:SetScript("OnClick", function()
+        box:SetFocus()
+        box:HighlightText()
+    end)
+    button:SetScript("OnEnter", function(self)
+        if GameTooltip then
+            GameTooltip:SetOwner(self, "ANCHOR_TOP")
+            GameTooltip:SetText(BI.L["copyHint"], 1, 1, 1, 1, true)
+            GameTooltip:Show()
+        end
+    end)
+    button:SetScript("OnLeave", function()
+        if GameTooltip then
+            GameTooltip:Hide()
+        end
+    end)
+    return button
+end
+
+-- Los cuadros son solo de lectura: si se escribe en ellos, se restaura el valor.
+local function lockText(box)
+    box:SetScript("OnTextChanged", function(self, user)
+        if user and self.lockedText then
+            self:SetText(self.lockedText)
+            self:HighlightText()
+        end
+    end)
+end
+
 function BI.Info.Create(parent)
     local panel = {}
 
@@ -68,7 +105,14 @@ function BI.Info.Create(parent)
     end)
     idBox:SetScript("OnChar", function()
     end)
+    lockText(idBox)
     panel.idBox = idBox
+
+    local idCopy = addCopyButton(parent, idBox)
+    if idCopy then
+        idCopy:SetPoint("LEFT", idBox, "RIGHT", 6, 0)
+        panel.idCopy = idCopy
+    end
 
     local idLabel = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     idLabel:SetPoint("RIGHT", idBox, "LEFT", -8, 0)
@@ -78,7 +122,7 @@ function BI.Info.Create(parent)
     local pathBox = CreateFrame("EditBox", nil, parent, "InputBoxTemplate")
     pathBox:SetHeight(20)
     pathBox:SetPoint("TOPLEFT", idBox, "BOTTOMLEFT", 0, -6)
-    pathBox:SetPoint("RIGHT", parent, "RIGHT", -14, 0)
+    pathBox:SetPoint("RIGHT", parent, "RIGHT", -80, 0)
     pathBox:SetAutoFocus(false)
     pathBox:SetScript("OnEditFocusGained", function(self)
         self:HighlightText()
@@ -88,7 +132,14 @@ function BI.Info.Create(parent)
     end)
     pathBox:SetScript("OnChar", function()
     end)
+    lockText(pathBox)
     panel.pathBox = pathBox
+
+    local pathCopy = addCopyButton(parent, pathBox)
+    if pathCopy then
+        pathCopy:SetPoint("LEFT", pathBox, "RIGHT", 6, 0)
+        panel.pathCopy = pathCopy
+    end
 
     local pathLabel = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     pathLabel:SetPoint("RIGHT", pathBox, "LEFT", -8, 0)
@@ -159,6 +210,7 @@ function BI.Info.Create(parent)
         if not id then
             preview:Hide()
             name:SetText("")
+            idBox.lockedText, pathBox.lockedText = "", ""
             idBox:SetText("")
             pathBox:SetText("")
             categories:SetText("")
@@ -171,8 +223,10 @@ function BI.Info.Create(parent)
         preview:Show()
         preview:SetTexture(id)
         name:SetText(BI.UI.DisplayName(pos))
-        idBox:SetText(tostring(id or ""))
-        pathBox:SetText(BI.DB.Path(id) or "")
+        idBox.lockedText = tostring(id)
+        pathBox.lockedText = BI.DB.Path(id) or ""
+        idBox:SetText(idBox.lockedText)
+        pathBox:SetText(pathBox.lockedText)
 
         local names = {}
         local keys = BI.Index.CategoriesOf(pos)
