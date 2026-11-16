@@ -26,6 +26,8 @@ BI.RegisterLocale("enUS", {
     ["infoNoSelection"] = "Select an icon",
     ["infoId"] = "ID",
     ["infoPath"] = "Path",
+    ["copyButton"] = "Copy",
+    ["copyHint"] = "Selects the text. Then press Ctrl+C to copy it.",
     ["infoCategories"] = "Categories",
     ["infoKeywords"] = "Keywords",
     ["tooltipId"] = "ID: %d",
