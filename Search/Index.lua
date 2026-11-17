@@ -409,7 +409,7 @@ function BI.Index.BuildAsync(onDone)
 
     local function step()
         local chunkStart = nowMs()
-        local last = position + 1999
+        local last = position + 699
         if last > totalIcons then
             last = totalIcons
         end
