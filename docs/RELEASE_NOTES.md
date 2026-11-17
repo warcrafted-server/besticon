@@ -1,3 +1,17 @@
+## 0.4.1 — Smoother loading / Carga más suave
+
+**English**
+
+- The first time you open the window, the icon index is now built faster and without the long freeze that caused stutter (about 3.4 s down to 2.1 s on a real client).
+- The **Copy** buttons for the ID and the path are now aligned.
+- **/bi debug** now reports index timings and memory use.
+
+**Español**
+
+- La primera vez que abres la ventana, el índice de iconos se construye ahora más rápido y sin el bloqueo largo que producía tirones (de unos 3,4 s a 2,1 s en un cliente real).
+- Los botones **Copiar** del ID y de la ruta quedan alineados.
+- **/bi debug** muestra ahora los tiempos del índice y la memoria que usa.
+
 ## 0.4.0 — Copy buttons / Botones de copiar
 
 **English**

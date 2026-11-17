@@ -4,6 +4,17 @@ Formato [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/), versionado 
 
 ## [Sin publicar]
 
+## [0.4.1] - 2026-11-17
+
+Parche: alineación y rendimiento de carga.
+
+### Corregido
+- Los botones «Copiar» del ID y de la ruta quedan alineados: los dos cuadros tienen el mismo ancho.
+
+### Cambiado
+- El índice de búsqueda se construye en menos tiempo (en un equipo real, de 3,4 s a 2,1 s) y sin el bloqueo de unos 2 s que producía tirones al abrir la ventana por primera vez: los ordenamientos usan una tabla de IDs en caché y los pasos finales se reparten en varios fotogramas, con 700 iconos por fotograma.
+- `/bi debug` muestra los tiempos de construcción del índice y la memoria que usa.
+
 ## [0.4.0] - 2026-11-16
 
 Novedad: copiar el ID y la ruta con un botón.
