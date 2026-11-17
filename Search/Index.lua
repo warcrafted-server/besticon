@@ -75,13 +75,12 @@ local ready = false
 local building = false
 local pendingDone = {}
 
-local function idOf(position)
-    local id = BI.DB.Get(position)
-    return id or 0
-end
+-- ids[posicion] = FileDataID, rellenado al indexar: los ordenamientos comparan con un acceso
+-- directo en lugar de llamar a BI.DB.Get miles de veces por lista.
+local ids = {}
 
 local function byID(a, b)
-    return idOf(a) < idOf(b)
+    return (ids[a] or 0) < (ids[b] or 0)
 end
 
 local function addPosting(key, position)
@@ -95,7 +94,8 @@ local function addPosting(key, position)
 end
 
 local function indexIcon(position)
-    local _, name = BI.DB.Get(position)
+    local id, name = BI.DB.Get(position)
+    ids[position] = id or 0
     if not name then
         return
     end
@@ -325,22 +325,34 @@ local function memoryKb()
     return collectgarbage("count")
 end
 
-local function finish()
+-- Pasos finales: en segundo plano se ejecuta uno por fotograma para no congelar el juego.
+local finishSteps = {
+    { "aliasesMs", buildAliases },
+    { "conceptsMs", buildConcepts },
+    { "categoriesMs", buildCategories },
+    { "positionsMs", buildAllPositions },
+}
+
+local function runFinishStep(i)
+    local step = finishSteps[i]
     local t0 = nowMs()
-    buildAliases()
-    local t1 = nowMs()
-    buildConcepts()
-    local t2 = nowMs()
-    buildCategories()
-    local t3 = nowMs()
-    buildAllPositions()
-    local t4 = nowMs()
-    stats.aliasesMs, stats.conceptsMs = t1 - t0, t2 - t1
-    stats.categoriesMs, stats.positionsMs = t3 - t2, t4 - t3
-    stats.finishMs = t4 - t0
+    step[2]()
+    stats[step[1]] = nowMs() - t0
+    stats.finishMs = (stats.finishMs or 0) + stats[step[1]]
+end
+
+local function markReady()
     stats.kbAfter = memoryKb()
     ready = true
     building = false
+end
+
+local function finish()
+    stats.finishMs = 0
+    for i = 1, #finishSteps do
+        runFinishStep(i)
+    end
+    markReady()
 end
 
 function BI.Index.Stats()
@@ -359,6 +371,7 @@ end
 
 function BI.Index.BuildSync()
     reset()
+    ids = {}
     totalIcons = BI.DB.Count()
     for position = 1, totalIcons do
         indexIcon(position)
@@ -390,6 +403,7 @@ function BI.Index.BuildAsync(onDone)
     building = true
     reset()
     totalIcons = BI.DB.Count()
+    ids = {}
     local position = 1
     stats = { kbBefore = memoryKb(), startMs = nowMs(), chunkMaxMs = 0, chunks = 0 }
 
@@ -411,15 +425,28 @@ function BI.Index.BuildAsync(onDone)
         if position <= totalIcons then
             C_Timer.After(0, step)
         else
-            finish()
-            stats.totalMs = nowMs() - stats.startMs
-            if onDone then
-                onDone()
+            stats.finishMs = 0
+            local function finishStep(i)
+                if i <= #finishSteps then
+                    runFinishStep(i)
+                    C_Timer.After(0, function()
+                        finishStep(i + 1)
+                    end)
+                    return
+                end
+                markReady()
+                stats.totalMs = nowMs() - stats.startMs
+                if onDone then
+                    onDone()
+                end
+                for k = 1, #pendingDone do
+                    pendingDone[k]()
+                end
+                pendingDone = {}
             end
-            for i = 1, #pendingDone do
-                pendingDone[i]()
-            end
-            pendingDone = {}
+            C_Timer.After(0, function()
+                finishStep(1)
+            end)
         end
     end
 
