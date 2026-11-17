@@ -94,8 +94,9 @@ function BI.Info.Create(parent)
     panel.name = name
 
     local idBox = CreateFrame("EditBox", nil, parent, "InputBoxTemplate")
-    idBox:SetSize(110, 20)
+    idBox:SetHeight(20)
     idBox:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 46, -8)
+    idBox:SetPoint("RIGHT", parent, "RIGHT", -80, 0)
     idBox:SetAutoFocus(false)
     idBox:SetScript("OnEditFocusGained", function(self)
         self:HighlightText()
