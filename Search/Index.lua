@@ -308,15 +308,44 @@ local function buildAllPositions()
     table.sort(allPositions, byID)
 end
 
+-- Mediciones para /bi debug: ms de cada tramo (la pausa más larga es lo que nota el jugador).
+local stats = {}
+
+local function nowMs()
+    if type(debugprofilestop) == "function" then
+        return debugprofilestop()
+    end
+    if type(os) == "table" and type(os.clock) == "function" then
+        return os.clock() * 1000
+    end
+    return 0
+end
+
+local function memoryKb()
+    return collectgarbage("count")
+end
+
 local function finish()
+    local t0 = nowMs()
     buildAliases()
+    local t1 = nowMs()
     buildConcepts()
+    local t2 = nowMs()
     buildCategories()
+    local t3 = nowMs()
     buildAllPositions()
+    local t4 = nowMs()
+    stats.aliasesMs, stats.conceptsMs = t1 - t0, t2 - t1
+    stats.categoriesMs, stats.positionsMs = t3 - t2, t4 - t3
+    stats.finishMs = t4 - t0
+    stats.kbAfter = memoryKb()
     ready = true
     building = false
 end
 
+function BI.Index.Stats()
+    return stats
+end
 local function reset()
     postings = {}
     tokenKeys = {}
@@ -362,8 +391,10 @@ function BI.Index.BuildAsync(onDone)
     reset()
     totalIcons = BI.DB.Count()
     local position = 1
+    stats = { kbBefore = memoryKb(), startMs = nowMs(), chunkMaxMs = 0, chunks = 0 }
 
     local function step()
+        local chunkStart = nowMs()
         local last = position + 1999
         if last > totalIcons then
             last = totalIcons
@@ -372,10 +403,16 @@ function BI.Index.BuildAsync(onDone)
             indexIcon(i)
         end
         position = last + 1
+        local took = nowMs() - chunkStart
+        stats.chunks = stats.chunks + 1
+        if took > stats.chunkMaxMs then
+            stats.chunkMaxMs = took
+        end
         if position <= totalIcons then
             C_Timer.After(0, step)
         else
             finish()
+            stats.totalMs = nowMs() - stats.startMs
             if onDone then
                 onDone()
             end
