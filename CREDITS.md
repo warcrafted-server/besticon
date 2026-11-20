@@ -14,15 +14,15 @@
 ## Terceros
 
     Componente:
-    Nombres de ruta de los iconos (lista de archivos comunitaria «community-listfile-withcapitals»)
+    Nombres de archivo de los iconos (tabla ManifestInterfaceData del cliente de WoW Forever)
     Autor/titular:
-    Comunidad wowdev (mantenedores de wow-listfile)
+    Blizzard Entertainment
     Licencia:
-    No declarada por el origen (comprobado el 2026-11-10: el repositorio no indica licencia)
+    No declarada para su redistribución (comprobado el 2026-11-20); son los nombres de archivo del propio juego
     Origen/URL:
-    https://github.com/wowdev/wow-listfile
+    Tabla ManifestInterfaceData de la build 1.60.1.70959, exportada con https://wago.tools/db2/ManifestInterfaceData
     Archivos:
-    Data/Icons_01.lua a Icons_10.lua (solo el nombre de cada icono; los FileDataID salen del cliente)
+    Data/Icons_01.lua a Icons_10.lua (FileDataID y nombre de cada icono)
 
 Los iconos son propiedad de Blizzard Entertainment y no se incluyen en este repositorio: el addon solo
 los muestra por su FileDataID desde el cliente del juego.

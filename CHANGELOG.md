@@ -4,6 +4,20 @@ Formato [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/), versionado 
 
 ## [Sin publicar]
 
+## [0.4.2] - 2026-11-20
+
+Parche: cambia el origen de los nombres de los iconos (sin función nueva).
+
+### Cambiado
+- Los nombres de los iconos salen ahora de la tabla `ManifestInterfaceData` del propio juego (build 1.60.1.70959) y ya no de la lista comunitaria wow-listfile. Se conserva el mismo catálogo de 27 714 iconos: 27 590 nombres idénticos, 78 cambian solo de mayúsculas y 46 iconos muy recientes que la tabla no lista pasan a llamarse `Icon_<ID>` (se encuentran por su número).
+- `tools/build_catalog.py` lee esa tabla en lugar del listfile.
+
+### Añadido
+- `tools/check_catalog.py`: busca iconos nuevos del juego y regenera el catálogo (herramienta de desarrollo, no va en el paquete).
+
+### Eliminado
+- La dependencia de wow-listfile (sin licencia declarada); `CREDITS.md` y el README citan ahora la tabla de Blizzard.
+
 ## [0.4.1] - 2026-11-17
 
 Parche: alineación y rendimiento de carga.

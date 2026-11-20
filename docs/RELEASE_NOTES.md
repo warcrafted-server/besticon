@@ -1,3 +1,15 @@
+## 0.4.2 — Icon names from the game / Nombres de iconos del propio juego
+
+**English**
+
+- Icon names now come from the game's own data tables instead of a community list. The catalog is the same 27,714 icons and searches work as before.
+- A few very recent icons that the game's table does not list appear as **Icon 1234567** and can be found by their number.
+
+**Español**
+
+- Los nombres de los iconos salen ahora de las tablas de datos del propio juego y no de una lista comunitaria. El catálogo son los mismos 27 714 iconos y las búsquedas funcionan igual.
+- Unos pocos iconos muy recientes que la tabla del juego no lista aparecen como **Icon 1234567** y se encuentran por su número.
+
 ## 0.4.1 — Smoother loading / Carga más suave
 
 **English**

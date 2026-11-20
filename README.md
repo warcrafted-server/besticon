@@ -62,7 +62,7 @@ Copies and forks must keep this attribution and link to https://github.com/warcr
 
 | Component | Author | License | Link |
 | --- | --- | --- | --- |
-| Icon names (`Data/Icons_*.lua`), from the community listfile | wowdev community | Not declared by the source | https://github.com/wowdev/wow-listfile |
+| Icon file names (`Data/Icons_*.lua`), from the game's own `ManifestInterfaceData` table | Blizzard Entertainment | Not declared for redistribution; they are the game's own file names | https://wago.tools/db2/ManifestInterfaceData |
 
 The icons belong to Blizzard Entertainment and are not distributed: they are read from the game client.
 
@@ -128,7 +128,7 @@ Las copias y los forks deben conservar esta atribución y enlazar a https://gith
 
 | Componente | Autor | Licencia | Enlace |
 | --- | --- | --- | --- |
-| Nombres de iconos (`Data/Icons_*.lua`), de la lista de archivos comunitaria | Comunidad wowdev | No declarada por el origen | https://github.com/wowdev/wow-listfile |
+| Nombres de archivo de los iconos (`Data/Icons_*.lua`), de la tabla `ManifestInterfaceData` del propio juego | Blizzard Entertainment | No declarada para su redistribución; son los nombres de archivo del propio juego | https://wago.tools/db2/ManifestInterfaceData |
 
 Los iconos son de Blizzard Entertainment y no se distribuyen: se leen del cliente del juego.
 

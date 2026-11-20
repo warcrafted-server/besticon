@@ -28,7 +28,7 @@ Perfect for macros and for anyone who has ever scrolled the default macro icon l
 
 - Made for WoW Forever (Interface 16001). It is not meant for Retail, Classic Era or other clients.
 - Applying an icon to a macro is not possible through the game API, so Best Icon drives the standard icon picker instead. You confirm in the macro window; if the icon cannot be applied it tells you in chat and you can copy the ID or path.
-- Icon names come from the community listfile (see credits). Icons themselves belong to Blizzard Entertainment and are never redistributed.
+- Icon names are the game's own file names, taken from its data tables (see credits). Icons themselves belong to Blizzard Entertainment and are never redistributed.
 
 ## Feedback
 
