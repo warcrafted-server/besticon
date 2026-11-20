@@ -3,7 +3,7 @@
 ## Media
 - Memoria del índice: unos 50 MB medidos con `/bi debug`, pero esa cifra incluye basura aún sin recolectar. Medir primero lo retenido y reducir solo si es alto (plan A en `.agents/plans/futuro/futuro.PLAN.md`).
 - Revisar con una muestra humana los alias en español y traducir las palabras con 1 o 2 iconos (unas 3 100), por tandas de 100 y empezando por las búsquedas reales que fallen (plan B).
-- Mantener el catálogo al día: que el addon añada en tiempo de ejecución los IDs que lista el cliente y no estén en el catálogo (nombre `Icon_<ID>`), y un script de mantenimiento que detecte builds nuevas (plan C).
+- Mantener el catálogo al día: que el addon añada en tiempo de ejecución los IDs que lista el cliente y no estén en el catálogo (nombre `Icon_<ID>`), y la parte del script (`tools/check_catalog.py`) ya está hecha (plan C).
 - Alias en inglés (sinónimos) si hace falta.
 - Más conceptos de búsqueda por función (interrumpir, curar, provocar, huir, montura, mascota, comida, veneno, defensa, buff…): solo con búsquedas reales que fallen y probados en el juego, para no meter ruido.
 

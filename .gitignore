@@ -28,3 +28,4 @@ AGENTS.md
 
 # Local development copy of the .toc (AddOns\BestIconDev junction)
 BestIconDev.toc
+__pycache__/

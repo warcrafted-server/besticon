@@ -40,11 +40,7 @@ def read_names(manifest):
     return names
 
 
-def main(dump_path, manifest):
-    ids = read_ids(dump_path)
-    names = read_names(manifest)
-    missing = sorted(i for i in ids if i not in names)
-    entries = sorted((i, names.get(i, "Icon_%d" % i)) for i in ids)
+def write_catalog(entries):
     OUT.mkdir(parents=True, exist_ok=True)
     for old in OUT.glob("Icons_*.lua"):
         old.unlink()
@@ -54,7 +50,14 @@ def main(dump_path, manifest):
             "-- Generado por tools/build_catalog.py. No editar a mano.\n"
             "local _, BI = ...\nBI.DB.chunks[#BI.DB.chunks + 1] = {\n" + rows + ",\n}\n",
             encoding="utf-8", newline="\n")
-    print("iconos:", len(entries), "| sin nombre:", len(missing), "| archivos:", -(-len(entries) // CHUNK))
+    print("iconos:", len(entries), "| archivos:", -(-len(entries) // CHUNK))
+
+
+def main(dump_path, manifest):
+    ids = read_ids(dump_path)
+    names = read_names(manifest)
+    print("sin nombre en la tabla:", sum(1 for i in ids if i not in names))
+    write_catalog(sorted((i, names.get(i, "Icon_%d" % i)) for i in ids))
 
 
 if __name__ == "__main__":

@@ -15,6 +15,7 @@ Namespace compartido `local ADDON, BI = ...` en todos los archivos. Orden de car
 ## Datos
 
 - **Catálogo:** `{FileDataID, "Nombre_De_Ruta"}`, unos 3 000 por archivo. Se regenera con `python tools/build_catalog.py <BestIconDump.lua> <ManifestInterfaceData.csv>`. `ManifestInterfaceData` es una tabla de Blizzard del cliente (ID, ruta y nombre de cada archivo de interfaz); se exporta a CSV de la misma build, por ejemplo desde wago.tools. Los iconos que no lista se nombran `Icon_<ID>`. El volcado sale del juego con `tools/BestIconDump` (`/bidump` y `/reload`; el archivo queda en `WTF/Account/<cuenta>/SavedVariables/BestIconDump.lua`).
+- **Iconos nuevos del juego:** `python tools/check_catalog.py` consulta wago.tools, compara la última build de Forever con el catálogo e informa; con `--apply` regenera `Data/Icons_*.lua` y apunta la build en `tools/last_build.txt`. No hace falta abrir el juego: el catálogo son los iconos de `Interface\ICONS` cuyo nombre empieza por `inv_`, `ability_` o `spell_` (coincide exactamente con el selector de macros del cliente). Después: tests, prueba en el juego y release.
 - **Alias:** `BI.Aliases.<locale>[palabra_en_ingles] = {sinónimos}`, sin tildes. Para ver qué palabras faltan por traducir, `tools/build_vocab.py` genera `tools/vocab.tsv` con frecuencias.
 - **Añadir un idioma:** crear `Data/Aliases/<locale>_NN.lua` y `Locales/<locale>.lua`, y listarlos en el TOC. La búsqueda consulta todos los idiomas cargados.
 - **Añadir una categoría:** una entrada en `Data/Categories.lua` y sus textos `cat_<clave>` en `Locales/`.
